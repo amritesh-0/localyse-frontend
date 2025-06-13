@@ -88,7 +88,7 @@ const ContactPage = () => {
         >
           <h1 className="mb-6 font-bold text-slate-900">Contact Us</h1>
           <p className="mb-12 text-lg text-slate-600">
-            Have questions or want to learn more about Suzao? We're here to help.
+            Have questions or want to learn more about Localyse? We're here to help.
           </p>
         </motion.div>
         
@@ -284,15 +284,15 @@ const ContactPage = () => {
           <div className="grid gap-4 md:grid-cols-2">
             {[
               {
-                question: 'How does Suzao match businesses with influencers?',
+                question: 'How does Localyse match businesses with influencers?',
                 answer: 'We use a combination of AI algorithms and human curation to match businesses with local influencers based on location, audience demographics, content style, and brand alignment.',
               },
               {
-                question: 'What size businesses can use Suzao?',
-                answer: 'Suzao is designed for businesses of all sizes, from local mom-and-pop shops to regional chains. Our tiered pricing ensures accessibility for even the smallest businesses.',
+                question: 'What size businesses can use Localyse?',
+                answer: 'Localyse is designed for businesses of all sizes, from local mom-and-pop shops to regional chains. Our tiered pricing ensures accessibility for even the smallest businesses.',
               },
               {
-                question: 'How much does it cost to use Suzao?',
+                question: 'How much does it cost to use Localyse?',
                 answer: 'We offer a range of plans starting with a free tier for basic usage. Our paid plans start at $29/month and scale based on your needs and campaign volume.',
               },
               {

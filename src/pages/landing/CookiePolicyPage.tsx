@@ -5,11 +5,11 @@ const CookiePolicyPage = () => {
   const sections = [
     {
       title: "Introduction",
-      content: "This Cookie Policy explains how Suzao uses cookies and similar technologies to recognize you when you visit our platform. It explains what these technologies are and why we use them, as well as your rights to control our use of them."
+      content: "This Cookie Policy explains how Localyse uses cookies and similar technologies to recognize you when you visit our platform. It explains what these technologies are and why we use them, as well as your rights to control our use of them."
     },
     {
       title: "What are cookies?",
-      content: "Cookies are small data files that are placed on your computer or mobile device when you visit a website. Cookies are widely used by website owners in order to make their websites work, or to work more efficiently, as well as to provide reporting information. Cookies set by the website owner (in this case, Suzao) are called 'first-party cookies'. Cookies set by parties other than the website owner are called 'third-party cookies'. Third-party cookies enable third-party features or functionality to be provided on or through the website (e.g., advertising, interactive content, and analytics)."
+      content: "Cookies are small data files that are placed on your computer or mobile device when you visit a website. Cookies are widely used by website owners in order to make their websites work, or to work more efficiently, as well as to provide reporting information. Cookies set by the website owner (in this case, Localyse) are called 'first-party cookies'. Cookies set by parties other than the website owner are called 'third-party cookies'. Third-party cookies enable third-party features or functionality to be provided on or through the website (e.g., advertising, interactive content, and analytics)."
     },
     {
       title: "Why do we use cookies?",
@@ -53,7 +53,7 @@ const CookiePolicyPage = () => {
     },
     {
       title: "Where can you get further information?",
-      content: "If you have any questions about our use of cookies or other technologies, please email us at privacy@suzao.com."
+      content: "If you have any questions about our use of cookies or other technologies, please email us at privacy@localyse.com."
     }
   ];
 

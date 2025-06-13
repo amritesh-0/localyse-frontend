@@ -60,7 +60,7 @@ const HowItWorks = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="mb-4 font-bold text-slate-900">How Suzao Works</h2>
+          <h2 className="mb-4 font-bold text-slate-900">How Localyse Works</h2>
           <p className="mx-auto max-w-2xl text-lg text-slate-600">
             Our simple, streamlined process connects businesses with local influencers in just a few steps.
           </p>

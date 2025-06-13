@@ -124,7 +124,7 @@ const BusinessOnboarding = () => {
             {/* Logo and Progress Bar */}
             <div className="mb-8">
               <div className="mb-6 text-center">
-                <h2 className="text-xl font-bold text-primary-700">Suzao</h2>
+                <h2 className="text-xl font-bold text-primary-700">Localyse</h2>
               </div>
               <div className="h-2 w-full rounded-full bg-slate-200">
                 <div className="h-2 w-1/2 rounded-full bg-primary-500"></div>

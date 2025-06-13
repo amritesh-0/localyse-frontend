@@ -42,19 +42,19 @@ const Testimonial: React.FC<TestimonialProps> = ({ quote, author, role, company,
 const Testimonials = () => {
   const testimonials = [
     {
-      quote: "Suzao has transformed how we approach local marketing. We've seen a 3x ROI on our campaigns with authentic engagement from real customers.",
+      quote: "Localyse has transformed how we approach local marketing. We've seen a 3x ROI on our campaigns with authentic engagement from real customers.",
       author: "Sarah Johnson",
       role: "Marketing Director",
       company: "Urban Cafe Chain"
     },
     {
-      quote: "As a micro-influencer, Suzao has connected me with local businesses that perfectly align with my values. The platform is intuitive and the campaign management tools save me hours.",
+      quote: "As a micro-influencer, Localyse has connected me with local businesses that perfectly align with my values. The platform is intuitive and the campaign management tools save me hours.",
       author: "Marcus Chen",
       role: "Lifestyle Influencer",
       company: "@marcusexplores"
     },
     {
-      quote: "We were struggling to reach our local audience effectively. Suzao matched us with the perfect neighborhood influencers, and we've seen foot traffic increase by 40%.",
+      quote: "We were struggling to reach our local audience effectively. Localyse matched us with the perfect neighborhood influencers, and we've seen foot traffic increase by 40%.",
       author: "Priya Patel",
       role: "Owner",
       company: "Bloom Boutique"
@@ -66,7 +66,7 @@ const Testimonials = () => {
       company: "Local Edge Marketing"
     },
     {
-      quote: "I've tried other platforms, but Suzao's focus on local markets makes all the difference. My content feels authentic, and my followers appreciate the local business recommendations.",
+      quote: "I've tried other platforms, but Localyse's focus on local markets makes all the difference. My content feels authentic, and my followers appreciate the local business recommendations.",
       author: "Emma Wright",
       role: "Food & Travel Creator",
       company: "@emmatastestheworld"
@@ -91,7 +91,7 @@ const Testimonials = () => {
         >
           <h2 className="mb-4 font-bold text-slate-900">Success Stories</h2>
           <p className="mx-auto max-w-2xl text-lg text-slate-600">
-            See how businesses and influencers are thriving with Suzao.
+            See how businesses and influencers are thriving with Localyse.
           </p>
         </motion.div>
 

@@ -85,7 +85,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
       >
         <div className="flex h-full flex-col">
           <div className="flex h-16 items-center justify-between px-4 border-b">
-            <span className="text-xl font-semibold text-primary-700">Suzao</span>
+            <span className="text-xl font-semibold text-primary-700">Localyse</span>
             <button
               onClick={toggleMobileSidebar}
               className="rounded-lg p-2 text-slate-500 hover:bg-slate-100"
@@ -132,9 +132,9 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
         <div className="flex h-full flex-col">
           <div className="flex h-16 items-center justify-between px-4 border-b">
             {isOpen ? (
-              <span className="text-xl font-semibold text-primary-700">Suzao</span>
+              <span className="text-xl font-semibold text-primary-700">Localyse</span>
             ) : (
-              <span className="mx-auto text-xl font-semibold text-primary-700">S</span>
+              <span className="mx-auto text-xl font-semibold text-primary-700">L</span>
             )}
             <button
               onClick={toggleSidebar}

@@ -151,7 +151,7 @@ const FeaturesPage = () => {
     },
     {
       title: "In-Platform Messaging",
-      description: "Direct communication between businesses and influencers within Suzao",
+      description: "Direct communication between businesses and influencers within Localyse",
       icon: <MessageSquare className="w-8 h-8 text-primary-500" />
     },
     {
@@ -172,7 +172,7 @@ const FeaturesPage = () => {
         >
           <h1 className="mb-6 font-bold text-slate-900">Platform Features</h1>
           <p className="text-lg text-slate-600">
-            Discover how Suzao's powerful features help businesses and influencers create meaningful connections and impactful campaigns.
+            Discover how Localyse's powerful features help businesses and influencers create meaningful connections and impactful campaigns.
           </p>
         </motion.div>
         
@@ -218,7 +218,7 @@ const FeaturesPage = () => {
           transition={{ duration: 0.5 }}
           className="mt-24 rounded-2xl bg-gradient-to-r from-primary-500 to-primary-700 p-12 text-center text-white"
         >
-          <h2 className="text-2xl font-bold mb-4">Ready to experience Suzao?</h2>
+          <h2 className="text-2xl font-bold mb-4">Ready to experience Localyse?</h2>
           <p className="mx-auto max-w-2xl mb-8 text-primary-100">
             Start connecting with local influencers or businesses today and see the impact of authentic, community-based marketing.
           </p>

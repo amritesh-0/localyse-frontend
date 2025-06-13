@@ -49,7 +49,7 @@ const Hero = () => {
             className="mb-6 max-w-4xl font-bold tracking-tight text-slate-900"
             variants={itemVariants}
           >
-            Suzao – Bridging Local Influence with Business Impact
+            Localyse – Bridging Local Influence with Business Impact
           </motion.h1>
 
           {/* Subheadline */}

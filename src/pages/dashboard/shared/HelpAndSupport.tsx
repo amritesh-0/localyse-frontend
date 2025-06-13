@@ -42,7 +42,7 @@ const HelpAndSupport = () => {
       <div>
         <h1 className="text-2xl font-bold text-slate-900">Help & Support</h1>
         <p className="text-slate-600">
-          Find resources and get assistance with your Suzao experience.
+          Find resources and get assistance with your Localyse experience.
         </p>
       </div>
 
@@ -124,7 +124,7 @@ const HelpAndSupport = () => {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
               {
-                title: 'Getting Started with Suzao',
+                title: 'Getting Started with Localyse',
                 duration: '5:32',
                 thumbnail: 'https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
               },
