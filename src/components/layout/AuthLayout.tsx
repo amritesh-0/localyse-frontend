@@ -8,7 +8,7 @@ const AuthLayout = () => {
     <div className="pt-6">
         <Link to="/" className="flex items-center gap-2 text-2xl font-semibold text-primary-700 hover:text-primary-900 transition-colors">
           <Sparkles className="h-6 w-6 text-primary-600" />
-          <span>Suzao</span>
+          <span>Localyse</span>
         </Link>
       </div>
 
