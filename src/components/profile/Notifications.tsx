@@ -5,7 +5,7 @@ import Input from '../../components/ui/Input';
 const Notifications = () => {
   return (
     <Card>
-      <h3 className="mb-4 text-lg font-medium text-slate-900">Notifications</h3>
+      <h4 className="mb-4 text-lg font-medium text-slate-900">Notifications</h4>
       <div className="space-y-4">
         <Input
           label="Email Notifications"
