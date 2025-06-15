@@ -16,8 +16,17 @@ export const fetchAvailableAds = async () => {
   return response.data;
 };
 
-export const applyForAd = async (adId) => {
-  const response = await axios.post(`${API_BASE}/apply`, { adId 
+export const fetchApplications = async () => {
+  const response = await axios.get(`${API_BASE}/applications`, {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+  return response.data;
+};
+
+export const applyForAd = async (adId, message) => {
+  const response = await axios.post(`${API_BASE}/apply`, { adId, message 
 }, {
     headers: {
       Authorization: `Bearer ${getToken()}`,
@@ -26,8 +35,8 @@ export const applyForAd = async (adId) => {
   return response.data;
 };
 
-export const markAdNotInterested = async (adId) => {
-  const response = await axios.post(`${API_BASE}/not-interested`, { adId
+export const markAdNotInterested = async (adId, message) => {
+  const response = await axios.post(`${API_BASE}/not-interested`, { adId, message
     }, {
     headers: {
       Authorization: `Bearer ${getToken()}`,

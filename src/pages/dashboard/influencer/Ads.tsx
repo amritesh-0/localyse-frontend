@@ -8,7 +8,13 @@ import {
 import Card from '../../../components/ui/Card';
 import Button from '../../../components/ui/Button';
 import type { Ad } from '../../../services/influencerDashboard/availableAds';
+
+interface AdWithStatus extends Ad {
+  applicationStatus?: string;
+  hasApplied?: boolean;
+}
 import * as availableAdsService from '../../../services/influencerDashboard/availableAds';
+import * as applicationsService from '../../../services/influencerDashboard/availableAds';
 
 interface ToastProps {
   message: string;
@@ -43,36 +49,55 @@ const Toast = ({ message, type, onClose }: ToastProps) => {
 };
 
 const InfluencerAds = () => {
-  const [availableAds, setAvailableAds] = useState<Ad[]>([]);
+  const [availableAds, setAvailableAds] = useState<AdWithStatus[]>([]);
+  const [applications, setApplications] = useState<any[]>([]);
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+  const [showMessagePopup, setShowMessagePopup] = useState(false);
+  const [currentAdId, setCurrentAdId] = useState<string | null>(null);
+  const [message, setMessage] = useState('');
+  const [actionType, setActionType] = useState<'apply' | 'reject' | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const userId = localStorage.getItem('userId') ?? '';
 
-  useEffect(() => {
-    const loadAds = async () => {
-      try {
-        const data = await availableAdsService.fetchAvailableAds();
-        if (data.success) {
-          const userId = localStorage.getItem('userId') ?? '';
-          const adsWithAppliedFlag = data.ads.map((ad: any) => {
-            const appliedInfluencers = ad.appliedInfluencers?.map((id: any) => id.toString()) || [];
-            // Use the hasApplied flag from backend if present, else fallback to checking appliedInfluencers
-            const hasAppliedFlag = ad.hasApplied !== undefined ? ad.hasApplied : appliedInfluencers.includes(userId);
+  // Function to fetch ads and applications and merge status
+  const loadAdsAndApplications = async () => {
+    try {
+        const adsData = await availableAdsService.fetchAvailableAds();
+        console.log('adsData:', adsData);
+        const appsData = await applicationsService.fetchApplications();
+        console.log('appsData:', appsData);
+        if (adsData.success && appsData.success) {
+          // Map applications by adId for quick lookup
+          const appMap = new Map();
+          appsData.applications.forEach((app: any) => {
+            appMap.set(app.ad._id, app);
+          });
+          // Merge application status into ads
+          const adsWithStatus = adsData.ads.map((ad: any) => {
+            const application = appMap.get(ad._id);
+            let status = 'none';
+            if (application) {
+              status = application.status.toLowerCase(); // normalize status string
+            }
             return {
               ...ad,
-              appliedInfluencers,
-              isApplied: hasAppliedFlag,
-              hasApplied: hasAppliedFlag,
+              applicationStatus: status,
+              hasApplied: status !== 'none' && status !== 'rejected',
             };
           });
-          setAvailableAds(adsWithAppliedFlag);
+          console.log('adsWithStatus:', adsWithStatus);
+          setAvailableAds(adsWithStatus);
+          setApplications(appsData.applications);
         } else {
-          showToast('Failed to load ads', 'error');
+          showToast('Failed to load ads or applications', 'error');
         }
-      } catch (error) {
-        showToast('Error loading ads', 'error');
-      }
-    };
-    loadAds();
+    } catch (error) {
+      showToast('Error loading ads or applications', 'error');
+    }
+  };
+
+  useEffect(() => {
+    loadAdsAndApplications();
   }, []);
 
   const showToast = (message: string, type: 'success' | 'error') => {
@@ -80,42 +105,49 @@ const InfluencerAds = () => {
     setTimeout(() => setToast(null), 3000);
   };
 
-  const handleApply = async (adId: string) => {
-    try {
-      const data = await availableAdsService.applyForAd(adId);
-      if (data.success) {
-        setAvailableAds((prevAds) =>
-          prevAds.map((ad: any) =>
-            ad._id === adId
-              ? {
-                  ...ad,
-                  appliedInfluencers: [...(ad.appliedInfluencers || []), userId],
-                  isApplied: true,
-                  hasApplied: true,
-                }
-              : ad
-          )
-        );
-        showToast('Successfully applied for campaign!', 'success');
-      } else {
-        showToast('Failed to apply for campaign', 'error');
-      }
-    } catch (error) {
-      showToast('Error applying for campaign', 'error');
-    }
+  const openMessagePopup = (adId: string, type: 'apply' | 'reject') => {
+    setCurrentAdId(adId);
+    setActionType(type);
+    setMessage('');
+    setShowMessagePopup(true);
   };
 
-  const handleReject = async (adId: string) => {
+  const closeMessagePopup = () => {
+    setShowMessagePopup(false);
+    setCurrentAdId(null);
+    setActionType(null);
+    setMessage('');
+    setIsSubmitting(false);
+  };
+
+  const handleSubmitMessage = async () => {
+    if (!currentAdId || !actionType) {
+      showToast('Invalid action', 'error');
+      return;
+    }
+    if (!message.trim()) {
+      showToast('Please enter a message', 'error');
+      return;
+    }
+    setIsSubmitting(true);
     try {
-      const data = await availableAdsService.markAdNotInterested(adId);
-      if (data.success) {
-        setAvailableAds((prev: any) => prev.filter((ad: any) => ad._id !== adId));
-        showToast('Campaign removed from your feed', 'success');
+      let data;
+      if (actionType === 'apply') {
+        data = await availableAdsService.applyForAd(currentAdId, message);
       } else {
-        showToast('Failed to remove campaign', 'error');
+        data = await availableAdsService.markAdNotInterested(currentAdId, message);
+      }
+      if (data.success) {
+        await loadAdsAndApplications();
+        showToast(actionType === 'apply' ? 'Successfully applied for campaign!' : 'Campaign removed from your feed', 'success');
+        closeMessagePopup();
+      } else {
+        showToast('Failed to submit message', 'error');
+        setIsSubmitting(false);
       }
     } catch (error) {
-      showToast('Error removing campaign', 'error');
+      showToast('Error submitting message', 'error');
+      setIsSubmitting(false);
     }
   };
 
@@ -162,7 +194,7 @@ const InfluencerAds = () => {
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {availableAds.map((ad, index) => {
-          const isApplied = ad.hasApplied;
+          const status = ad.applicationStatus;
           return (
             <motion.div
               key={ad._id}
@@ -223,27 +255,48 @@ const InfluencerAds = () => {
                   )}
 
                   <div className="flex space-x-3 mt-4 max-w-full overflow-hidden">
-                    <Button
-                      variant="primary"
-                      className="flex-1 min-w-0"
-                      onClick={() => handleApply(ad._id)}
-                      icon={isApplied ? <CheckCircle size={16} className="text-green-600" /> : <CheckCircle size={16} />}
-                      disabled={isApplied}
-                      style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0, pointerEvents: isApplied ? 'none' : 'auto' }}
-                    >
-                      {isApplied ? 'Applied' : 'Apply'}
-                    </Button>
-                    <Button
-                      variant="outline"
-                      className="flex-1 min-w-0"
-                      onClick={() => handleReject(ad._id)}
-                      icon={<XCircle size={16} className={isApplied ? 'text-gray-400' : ''} />}
-                      disabled={isApplied}
-                      hidden={isApplied}
-                      style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0, pointerEvents: isApplied ? 'none' : 'auto' }}
-                    >
-                      Not Interested
-                    </Button>
+                  {(status === 'accepted') ? (
+                      <Button
+                        variant="primary"
+                        className="flex-1 min-w-0"
+                        onClick={() => {
+                          // Navigate to track page
+                          window.location.href = `/dashboard/influencer/track-campaign/${ad._id}`;
+                        }}
+                      >
+                        Track Ads
+                      </Button>
+                    ) : (status === 'pending' || (status === 'none' && ad.hasApplied)) ? (
+                      <Button
+                        variant="primary"
+                        className="flex-1 min-w-0"
+                        disabled
+                        icon={<CheckCircle size={16} className="text-green-600" />}
+                      >
+                        Applied
+                      </Button>
+                    ) : (
+                      <>
+                        <Button
+                          variant="primary"
+                          className="flex-1 min-w-0"
+                          onClick={() => openMessagePopup(ad._id, 'apply')}
+                          icon={<CheckCircle size={16} />}
+                          disabled={isSubmitting}
+                        >
+                          Apply
+                        </Button>
+                        <Button
+                          variant="outline"
+                          className="flex-1 min-w-0"
+                          onClick={() => openMessagePopup(ad._id, 'reject')}
+                          icon={<XCircle size={16} />}
+                          disabled={isSubmitting}
+                        >
+                          Not Interested
+                        </Button>
+                      </>
+                    )}
                   </div>
                 </div>
               </Card>
@@ -251,6 +304,31 @@ const InfluencerAds = () => {
           );
         })}
       </div>
+
+      {showMessagePopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg p-6 w-96 max-w-full">
+            <h2 className="text-xl font-semibold mb-4">
+              {actionType === 'apply' ? 'Apply for Campaign' : 'Not Interested'}
+            </h2>
+            <textarea
+              className="w-full h-24 p-2 border border-gray-300 rounded resize-none"
+              placeholder="Enter your message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              disabled={isSubmitting}
+            />
+            <div className="mt-4 flex justify-end space-x-2">
+              <Button variant="outline" onClick={closeMessagePopup} disabled={isSubmitting}>
+                Cancel
+              </Button>
+              <Button variant="primary" onClick={handleSubmitMessage} disabled={isSubmitting}>
+                Submit
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
     </div>
