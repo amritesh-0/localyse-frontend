@@ -192,119 +192,125 @@ const InfluencerAds = () => {
         </select>
       </Card>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {availableAds.map((ad, index) => {
-          const status = ad.applicationStatus;
-          return (
-            <motion.div
-              key={ad._id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
-            >
-              <Card className="overflow-hidden shadow-lg rounded-lg">
-                <div className="relative h-52">
-                  {ad.image ? (
-                    <img
-                      src={ad.image?.url}
-                      alt={ad.campaignName}
-                      className="h-full w-full object-cover rounded-t-lg"
-                    />
-                  ) : (
-                    <div className="h-full w-full bg-gray-200 flex items-center justify-center text-gray-500 rounded-t-lg">
-                      No Image
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-t-lg" />
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <h3 className="text-xl font-semibold text-white truncate">
-                      {ad.campaignName}
-                    </h3>
-                  </div>
-                </div>
-
-                <div className="p-4 space-y-3">
-                  <p className="text-sm text-slate-700 line-clamp-3">{ad.campaignDescription}</p>
-
-                  <div className="flex flex-wrap gap-3 text-xs text-slate-600">
-                    <span className="flex items-center gap-1">
-                      <Tag size={14} /> Platforms: {ad.platforms.join(', ')}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <List size={14} /> Tasks: {ad.taskCount}
-                    </span>
-                    <span className="flex items-center gap-1 capitalize">
-                      <strong>Type:</strong> {ad.barterOrPaid}
-                    </span>
-                    {ad.barterOrPaid === 'paid' && (
-                      <span className="flex items-center gap-1 text-green-600">
-                        <DollarSign size={14} /> ${ad.budget?.toLocaleString()}
-                      </span>
-                    )}
-                    <span className="flex items-center gap-1">
-                      <Calendar size={14} />
-                      {formatDate(ad.startDate)} - {formatDate(ad.endDate)}
-                    </span>
-                  </div>
-
-                  {ad.requirements && (
-                    <div>
-                      <h4 className="mb-1 text-sm font-medium text-slate-900">Requirements:</h4>
-                      <p className="text-sm text-slate-600 whitespace-pre-line">{ad.requirements}</p>
-                    </div>
-                  )}
-
-                  <div className="flex space-x-3 mt-4 max-w-full overflow-hidden">
-                  {(status === 'accepted') ? (
-                      <Button
-                        variant="primary"
-                        className="flex-1 min-w-0"
-                        onClick={() => {
-                          // Navigate to track page
-                          window.location.href = `/dashboard/influencer/track-campaign/${ad._id}`;
-                        }}
-                      >
-                        Track Ads
-                      </Button>
-                    ) : (status === 'pending' || (status === 'none' && ad.hasApplied)) ? (
-                      <Button
-                        variant="primary"
-                        className="flex-1 min-w-0"
-                        disabled
-                        icon={<CheckCircle size={16} className="text-green-600" />}
-                      >
-                        Applied
-                      </Button>
+      {availableAds.length === 0 ? (
+        <div className="text-center text-slate-600 text-lg py-10">
+          No available ads in your location right now.
+        </div>
+      ) : (
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {availableAds.map((ad, index) => {
+            const status = ad.applicationStatus;
+            return (
+              <motion.div
+                key={ad._id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+              >
+                <Card className="overflow-hidden shadow-lg rounded-lg">
+                  <div className="relative h-52">
+                    {ad.image ? (
+                      <img
+                        src={ad.image?.url}
+                        alt={ad.campaignName}
+                        className="h-full w-full object-cover rounded-t-lg"
+                      />
                     ) : (
-                      <>
+                      <div className="h-full w-full bg-gray-200 flex items-center justify-center text-gray-500 rounded-t-lg">
+                        No Image
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-t-lg" />
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <h3 className="text-xl font-semibold text-white truncate">
+                        {ad.campaignName}
+                      </h3>
+                    </div>
+                  </div>
+
+                  <div className="p-4 space-y-3">
+                    <p className="text-sm text-slate-700 line-clamp-3">{ad.campaignDescription}</p>
+
+                    <div className="flex flex-wrap gap-3 text-xs text-slate-600">
+                      <span className="flex items-center gap-1">
+                        <Tag size={14} /> Platforms: {ad.platforms.join(', ')}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <List size={14} /> Tasks: {ad.taskCount}
+                      </span>
+                      <span className="flex items-center gap-1 capitalize">
+                        <strong>Type:</strong> {ad.barterOrPaid}
+                      </span>
+                      {ad.barterOrPaid === 'paid' && (
+                        <span className="flex items-center gap-1 text-green-600">
+                          <DollarSign size={14} /> ${ad.budget?.toLocaleString()}
+                        </span>
+                      )}
+                      <span className="flex items-center gap-1">
+                        <Calendar size={14} />
+                        {formatDate(ad.startDate)} - {formatDate(ad.endDate)}
+                      </span>
+                    </div>
+
+                    {ad.requirements && (
+                      <div>
+                        <h4 className="mb-1 text-sm font-medium text-slate-900">Requirements:</h4>
+                        <p className="text-sm text-slate-600 whitespace-pre-line">{ad.requirements}</p>
+                      </div>
+                    )}
+
+                    <div className="flex space-x-3 mt-4 max-w-full overflow-hidden">
+                    {(status === 'accepted') ? (
                         <Button
                           variant="primary"
                           className="flex-1 min-w-0"
-                          onClick={() => openMessagePopup(ad._id, 'apply')}
-                          icon={<CheckCircle size={16} />}
-                          disabled={isSubmitting}
+                          onClick={() => {
+                            // Navigate to track page
+                            window.location.href = `/dashboard/influencer/track-campaign/${ad._id}`;
+                          }}
                         >
-                          Apply
+                          Track Ads
                         </Button>
+                      ) : (status === 'pending' || (status === 'none' && ad.hasApplied)) ? (
                         <Button
-                          variant="outline"
+                          variant="primary"
                           className="flex-1 min-w-0"
-                          onClick={() => openMessagePopup(ad._id, 'reject')}
-                          icon={<XCircle size={16} />}
-                          disabled={isSubmitting}
+                          disabled
+                          icon={<CheckCircle size={16} className="text-green-600" />}
                         >
-                          Not Interested
+                          Applied
                         </Button>
-                      </>
-                    )}
+                      ) : (
+                        <>
+                          <Button
+                            variant="primary"
+                            className="flex-1 min-w-0"
+                            onClick={() => openMessagePopup(ad._id, 'apply')}
+                            icon={<CheckCircle size={16} />}
+                            disabled={isSubmitting}
+                          >
+                            Apply
+                          </Button>
+                          <Button
+                            variant="outline"
+                            className="flex-1 min-w-0"
+                            onClick={() => openMessagePopup(ad._id, 'reject')}
+                            icon={<XCircle size={16} />}
+                            disabled={isSubmitting}
+                          >
+                            Not Interested
+                          </Button>
+                        </>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </Card>
-            </motion.div>
-          );
-        })}
-      </div>
-
+                </Card>
+              </motion.div>
+            );
+          })}
+        </div>
+      )
+    }
       {showMessagePopup && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white rounded-lg p-6 w-96 max-w-full">

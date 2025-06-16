@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, Hash, DollarSign, Users, Trash2, Clock } from 'lucide-react';
+import { Calendar, Hash, DollarSign, Users, Trash2, Clock, Star, TrendingUp } from 'lucide-react';
 
 interface AdCardProps {
   ad: {
@@ -47,12 +47,13 @@ const isCampaignActive = (startDate: string, endDate: string): boolean => {
 
 const getPlatformStyle = (platform: string): string => {
   const styles: Record<string, string> = {
-    'instagram': 'bg-indigo-100 text-indigo-800',
-    'youtube': 'bg-rose-100 text-rose-800',
-    'facebook': 'bg-blue-100 text-blue-800',
-    'twitter': 'bg-sky-100 text-sky-800',
+    'instagram': 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border border-pink-200',
+    'youtube': 'bg-gradient-to-r from-red-100 to-rose-100 text-red-700 border border-red-200',
+    'facebook': 'bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 border border-blue-200',
+    'twitter': 'bg-gradient-to-r from-sky-100 to-cyan-100 text-sky-700 border border-sky-200',
+    'tiktok': 'bg-gradient-to-r from-slate-100 to-gray-100 text-slate-700 border border-slate-200',
   };
-  return styles[platform.toLowerCase()] || 'bg-slate-100 text-slate-800';
+  return styles[platform.toLowerCase()] || 'bg-gradient-to-r from-slate-100 to-gray-100 text-slate-700 border border-slate-200';
 };
 
 const AdCard: React.FC<AdCardProps> = ({ ad, onDelete }) => {
@@ -70,133 +71,178 @@ const AdCard: React.FC<AdCardProps> = ({ ad, onDelete }) => {
   
   let statusText = '';
   let statusClasses = '';
+  let statusIcon = null;
   
   if (today < start) {
     statusText = 'Upcoming';
-    statusClasses = 'bg-amber-100 text-amber-800';
+    statusClasses = 'bg-gradient-to-r from-amber-100 to-yellow-100 text-amber-800 border border-amber-200';
+    statusIcon = <Clock size={12} />;
   } else if (isActive) {
     statusText = 'Active';
-    statusClasses = 'bg-emerald-100 text-emerald-800';
+    statusClasses = 'bg-gradient-to-r from-emerald-100 to-green-100 text-emerald-800 border border-emerald-200';
+    statusIcon = <TrendingUp size={12} />;
   } else {
     statusText = 'Ended';
-    statusClasses = 'bg-slate-100 text-slate-700';
+    statusClasses = 'bg-gradient-to-r from-slate-100 to-gray-100 text-slate-700 border border-slate-200';
+    statusIcon = <Star size={12} />;
   }
 
   return (
-    <div className="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 h-full flex flex-col overflow-hidden relative">
+    <div className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 h-full flex flex-col overflow-hidden relative border border-slate-100 hover:border-primary-200 transform hover:-translate-y-1">
       {/* Status Badge */}
-      <div className={`absolute top-3 left-3 z-10 px-2.5 py-1 rounded-full text-xs font-medium ${statusClasses}`}>
-        {statusText}
+      <div className={`absolute top-4 left-4 z-10 px-3 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1 shadow-sm ${statusClasses}`}>
+        {statusIcon}
+        <span>{statusText}</span>
       </div>
 
       {/* Delete Button */}
       {onDelete && (
         <button
           onClick={handleDelete}
-          className="absolute top-3 right-3 z-10 bg-white/90 p-1.5 rounded-full shadow-sm 
-            hover:bg-red-50 hover:shadow transition-all duration-300 opacity-0 
-            group-hover:opacity-100 transform translate-y-1 group-hover:translate-y-0"
+          className="absolute top-4 right-4 z-10 bg-white/95 backdrop-blur-sm p-2 rounded-full shadow-lg 
+            hover:bg-red-50 hover:shadow-xl transition-all duration-300 opacity-0 
+            group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 border border-red-100"
           aria-label="Delete campaign"
         >
           <Trash2 size={16} className="text-red-600" />
         </button>
       )}
 
-      {/* Image Section */}
-      {/* {ad.image ? ( */}
-        <div className="relative w-full overflow-hidden" style={{ paddingTop: '56.25%' }}>
-          <img
-            src={ad.image?.url || ''}
-            alt={ad.campaignName}
-            className="absolute top-0 left-0 w-full h-full object-cover 
-              transition-transform duration-500 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-80 pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-full p-4">
-            <h3 className="text-white text-xl font-semibold line-clamp-2 text-shadow">
-              {ad.campaignName}
-            </h3>
+      {/* Header Section with Gradient */}
+      <div className="relative">
+        {ad.image ? (
+          <div className="relative w-full h-48 overflow-hidden">
+            <img
+              src={ad.image.url}
+              alt={ad.campaignName}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-6">
+              <h3 className="text-white text-xl font-bold leading-tight drop-shadow-lg">
+                {ad.campaignName}
+              </h3>
+            </div>
           </div>
-        </div>
-      {/* // )
-      //  : (
-      //   <div className="h-20 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-t-xl flex items-center px-6">
-      //     <h3 className="text-white text-xl font-semibold">{ad.campaignName}</h3>
-      //   </div>
-      // )
-      // } */}
+        ) : (
+          <div className="h-32 bg-gradient-to-br from-primary-500 via-primary-600 to-secondary-600 relative overflow-hidden">
+            <div className="absolute inset-0 bg-black/10"></div>
+            <div className="relative h-full flex items-center justify-center p-6">
+              <h3 className="text-white text-xl font-bold text-center leading-tight drop-shadow-lg">
+                {ad.campaignName}
+              </h3>
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* Content Section */}
-      <div className="p-5 flex-grow flex flex-col">
-        {!ad.image && (
-          <h3 className="text-lg font-semibold text-slate-900 mb-2">{ad.campaignName}</h3>
-        )}
-        
+      <div className="p-6 flex-grow flex flex-col space-y-4">
+        {/* Campaign Description */}
         {ad.campaignDescription && (
-          <p className="text-sm text-slate-600 mb-4 line-clamp-2">
+          <p className="text-slate-600 text-sm leading-relaxed line-clamp-2">
             {ad.campaignDescription}
           </p>
         )}
 
-        {/* Campaign Details */}
-        <div className="space-y-3 text-sm mt-auto">
-          {/* Platforms */}
-          <div className="flex flex-wrap gap-2">
-            {ad.platforms.map((platform) => (
-              <span
-                key={platform}
-                className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs 
-                  font-medium transform transition-transform duration-300 hover:scale-105
-                  ${getPlatformStyle(platform)}`}
-              >
-                {platform}
-              </span>
-            ))}
+        {/* Platforms */}
+        <div className="flex flex-wrap gap-2">
+          {ad.platforms.map((platform) => (
+            <span
+              key={platform}
+              className={`inline-flex items-center px-3 py-1.5 rounded-lg text-xs 
+                font-semibold transform transition-all duration-300 hover:scale-105 hover:shadow-md
+                ${getPlatformStyle(platform)}`}
+            >
+              {platform.charAt(0).toUpperCase() + platform.slice(1)}
+            </span>
+          ))}
+        </div>
+
+        {/* Campaign Details Grid */}
+        <div className="space-y-4 mt-auto">
+          {/* Date Range */}
+          <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2 text-slate-700">
+                <Calendar size={16} className="text-primary-500" />
+                <span className="text-sm font-medium">Duration</span>
+              </div>
+              <div className="text-right">
+                <div className="text-sm font-semibold text-slate-900">
+                  {formatDate(ad.startDate)} - {formatDate(ad.endDate)}
+                </div>
+                <div className="text-xs text-slate-500 flex items-center justify-end space-x-1">
+                  <Clock size={12} />
+                  <span>{duration} days</span>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Duration */}
-          <div className="flex justify-between items-center text-slate-700">
-            <div className="flex items-center gap-2">
-              <Calendar size={16} className="text-slate-500" />
-              <span>{formatDate(ad.startDate)} - {formatDate(ad.endDate)}</span>
+          {/* Task Count & Budget */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-blue-50 rounded-xl p-3 border border-blue-100">
+              <div className="flex items-center space-x-2 mb-1">
+                <Hash size={14} className="text-blue-500" />
+                <span className="text-xs font-medium text-blue-700">Posts</span>
+              </div>
+              <div className="text-lg font-bold text-blue-900">{ad.taskCount}</div>
             </div>
-            <div className="flex items-center gap-2 text-xs">
-              <Clock size={16} className="text-slate-500" />
-              <span>{duration} days</span>
-            </div>
-          </div>
 
-          {/* Task Count */}
-          <div className="flex items-center gap-2 text-slate-700">
-            <Hash size={16} className="text-slate-500" />
-            <span>{ad.taskCount} {ad.taskCount === 1 ? 'post' : 'posts'} required</span>
+            {ad.barterOrPaid === 'paid' && ad.budget ? (
+              <div className="bg-green-50 rounded-xl p-3 border border-green-100">
+                <div className="flex items-center space-x-2 mb-1">
+                  <DollarSign size={14} className="text-green-500" />
+                  <span className="text-xs font-medium text-green-700">Budget</span>
+                </div>
+                <div className="text-lg font-bold text-green-900">${ad.budget.toLocaleString()}</div>
+              </div>
+            ) : (
+              <div className="bg-amber-50 rounded-xl p-3 border border-amber-100">
+                <div className="flex items-center space-x-2 mb-1">
+                  <Star size={14} className="text-amber-500" />
+                  <span className="text-xs font-medium text-amber-700">Type</span>
+                </div>
+                <div className="text-sm font-bold text-amber-900">Barter</div>
+              </div>
+            )}
           </div>
-
-          {/* Budget - Highlight if paid */}
-          {ad.barterOrPaid === 'paid' && ad.budget && (
-            <div className="flex items-center gap-2 font-medium text-indigo-700">
-              <DollarSign size={16} className="text-indigo-600" />
-              <span>${ad.budget.toLocaleString()}</span>
-            </div>
-          )}
 
           {/* Requirements */}
           {ad.requirements && (
-            <div className="flex items-center gap-2 text-slate-700">
-              <Users size={16} className="text-slate-500" />
-              <span className="line-clamp-1">{ad.requirements}</span>
+            <div className="bg-purple-50 rounded-xl p-4 border border-purple-100">
+              <div className="flex items-start space-x-2">
+                <Users size={16} className="text-purple-500 mt-0.5 flex-shrink-0" />
+                <div>
+                  <div className="text-xs font-medium text-purple-700 mb-1">Requirements</div>
+                  <div className="text-sm text-purple-900 leading-relaxed">{ad.requirements}</div>
+                </div>
+              </div>
             </div>
           )}
         </div>
       </div>
 
-      {/* Bottom Bar - Campaign Type */}
-      <div className={`py-2 px-5 text-center text-sm font-medium ${
+      {/* Bottom Status Bar */}
+      <div className={`py-3 px-6 text-center text-sm font-semibold border-t ${
         ad.barterOrPaid === 'paid' 
-          ? 'bg-emerald-50 text-emerald-700' 
-          : 'bg-amber-50 text-amber-700'
+          ? 'bg-gradient-to-r from-emerald-50 to-green-50 text-emerald-700 border-emerald-100' 
+          : 'bg-gradient-to-r from-amber-50 to-yellow-50 text-amber-700 border-amber-100'
       }`}>
-        {ad.barterOrPaid === 'paid' ? 'Paid Campaign' : 'Barter Campaign'}
+        <div className="flex items-center justify-center space-x-2">
+          {ad.barterOrPaid === 'paid' ? (
+            <>
+              <DollarSign size={16} />
+              <span>Paid Campaign</span>
+            </>
+          ) : (
+            <>
+              <Star size={16} />
+              <span>Barter Campaign</span>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
