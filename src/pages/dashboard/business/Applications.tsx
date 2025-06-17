@@ -250,7 +250,7 @@ const BusinessApplications: React.FC = () => {
         ) : (
           filteredApplications.map(app => (
             <Card key={app._id} className="p-6 space-y-4">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
                 <div className="flex items-center space-x-4">
                   <img
                     src={(app as any).influencerOnboarding?.instagramInsights?.profile_picture_url || 'https://via.placeholder.com/150'}
@@ -283,8 +283,8 @@ const BusinessApplications: React.FC = () => {
               <div>
                 <p className="text-slate-700 text-sm">{app.message}</p>
               </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4 text-sm text-slate-500">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
+                <div className="flex flex-col sm:flex-row sm:space-x-4 text-sm text-slate-500 space-y-2 sm:space-y-0">
                   <span><strong>Campaign:</strong> {app.ad?.campaignName}</span>
                   <span><strong>Deadline:</strong> {app.ad && (app.ad as any).endDate ? new Date((app.ad as any).endDate).toLocaleDateString() : ''}</span>
                   <span><strong>Budget:</strong> {app.ad && (app.ad as any).budget != null ? `$${(app.ad as any).budget}` : 'barter'}</span>
