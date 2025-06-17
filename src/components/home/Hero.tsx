@@ -1,102 +1,92 @@
-import { motion } from 'framer-motion';
-import { ArrowRight, Star } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import Container from '../ui/Container';
-import Button from '../ui/Button';
+import React from 'react';
+import { ArrowRight } from 'lucide-react';
 
 const Hero = () => {
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-      },
-    },
-  };
-
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-white to-slate-50 py-16 sm:py-20 lg:py-24">
-      <Container>
-        <motion.div
-          className="flex flex-col items-center text-center"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {/* Badge */}
-          <motion.div variants={itemVariants}>
-            <div className="mb-8 inline-flex items-center space-x-2 rounded-full bg-primary-50 px-4 py-1.5 text-sm font-medium text-primary-700">
-              <Star size={14} className="fill-primary-500 text-primary-500" />
-              <span>Local influence, global impact</span>
-            </div>
-          </motion.div>
-
-          {/* Headline */}
-          <motion.h1 
-            className="mb-6 max-w-4xl font-bold tracking-tight text-slate-900"
-            variants={itemVariants}
-          >
-            Localyse – Bridging Local Influence with Business Impact
-          </motion.h1>
-
-          {/* Subheadline */}
-          <motion.p 
-            className="mb-10 max-w-2xl text-lg text-slate-600"
-            variants={itemVariants}
-          >
-            Empowering local businesses with authentic, influencer-driven marketing.
-            Connect with relevant local creators and drive meaningful engagement.
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div 
-            className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0"
-            variants={itemVariants}
-          >
-            <Link to="/signup">
-              <Button size="lg" icon={<ArrowRight size={18} />} iconPosition="right">
+    <section className="relative pt-20 pb-16 md:pt-28 md:pb-24 overflow-hidden">
+      {/* Background with gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 to-blue-500 z-0"></div>
+      
+      {/* Background pattern */}
+      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1557682224-5b8590cd9ec5?q=80&w=2129&auto=format&fit=crop')] bg-cover bg-center opacity-10 z-0"></div>
+      
+      <div className="relative container mx-auto px-4 md:px-6 z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div className="text-white pt-8 md:pt-0">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+              Connect <span className="text-yellow-300">Influencers</span> with <span className="text-yellow-300">Local Businesses</span>
+            </h1>
+            <p className="text-lg md:text-xl opacity-90 mb-8 max-w-lg">
+              Amplify your local reach with authentic partnerships. Sazao connects businesses with the perfect local influencers to drive engagement and growth.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a
+                href="/register"
+                className="px-6 py-3 bg-white text-indigo-600 font-medium rounded-md hover:bg-gray-100 transition-colors inline-flex items-center justify-center"
+              >
                 Get Started
-              </Button>
-            </Link>
-            <Link to="#how-it-works">
-              <Button size="lg" variant="outline">
-                Learn How It Works
-              </Button>
-            </Link>
-          </motion.div>
-
-          {/* Stats/Trust indicators */}
-          <motion.div 
-            className="mt-16 grid grid-cols-2 gap-8 border-t border-slate-200 pt-10 sm:grid-cols-4"
-            variants={itemVariants}
-          >
-            {[
-              { label: 'Local Businesses', value: '2,500+' },
-              { label: 'Influencers', value: '10,000+' },
-              { label: 'Campaigns', value: '15,000+' },
-              { label: 'Revenue Generated', value: '$25M+' },
-            ].map((stat, index) => (
-              <div key={index} className="flex flex-col items-center">
-                <div className="text-2xl font-bold text-primary-600 sm:text-3xl">{stat.value}</div>
-                <div className="text-sm text-slate-500">{stat.label}</div>
+                <ArrowRight className="ml-2 w-4 h-4" />
+              </a>
+              <a
+                href="/features"
+                className="px-6 py-3 bg-transparent border border-white text-white font-medium rounded-md hover:bg-white/10 transition-colors inline-flex items-center justify-center"
+              >
+                Learn More
+              </a>
+            </div>
+            <div className="mt-8 flex items-center">
+              <div className="flex -space-x-2">
+                {[1, 2, 3, 4].map((i) => (
+                  <img
+                    key={i}
+                    src={`https://randomuser.me/api/portraits/women/${i + 20}.jpg`}
+                    alt="User"
+                    className="w-10 h-10 rounded-full border-2 border-white object-cover"
+                  />
+                ))}
               </div>
-            ))}
-          </motion.div>
-        </motion.div>
-      </Container>
+              <p className="ml-4 text-sm opacity-90">Trusted by <span className="font-bold">500+</span> influencers & businesses</p>
+            </div>
+          </div>
+          
+          <div className="hidden lg:block">
+            <div className="relative">
+              <img
+                src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                alt="Influencer marketing collaboration"
+                className="rounded-lg shadow-xl transform translate-x-4 translate-y-4 hover:-translate-y-2 transition-transform duration-500"
+              />
+              <div className="absolute -top-6 -left-6 bg-white p-4 rounded-lg shadow-lg w-48 hover:-translate-y-1 transition-transform duration-300">
+                <div className="flex items-center mb-2">
+                  <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
+                    B
+                  </div>
+                  <p className="ml-2 font-semibold text-gray-800">Burger Bros</p>
+                </div>
+                <p className="text-sm text-gray-600">Campaign with @foodie_lisa increased foot traffic by 32%!</p>
+              </div>
+              <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg w-48 hover:-translate-y-1 transition-transform duration-300">
+                <div className="flex items-center mb-2">
+                  <img
+                    src="https://randomuser.me/api/portraits/women/44.jpg"
+                    alt="Influencer"
+                    className="w-8 h-8 rounded-full object-cover"
+                  />
+                  <p className="ml-2 font-semibold text-gray-800">@travelwithme</p>
+                </div>
+                <p className="text-sm text-gray-600">5 new partnerships this month!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Wave separator */}
+      <div className="absolute bottom-0 left-0 right-0">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" fill="#ffffff">
+          <path d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
+        </svg>
+      </div>
     </section>
   );
 };
