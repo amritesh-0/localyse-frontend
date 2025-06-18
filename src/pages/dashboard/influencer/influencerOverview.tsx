@@ -1,61 +1,68 @@
+
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { BarChart, TrendingUp, Users, Calendar } from 'lucide-react';
 import Card from '../../../components/ui/Card';
+import { fetchInfluencerOverview } from '../../../services/influencerDashboard/overview';
 
 const Overview = () => {
-  const stats = [
-    {
-      title: 'Active Campaigns',
-      value: '12',
-      change: '+3',
-      icon: <Calendar className="text-primary-500" />,
-    },
-    {
-      title: 'Total Reach',
-      value: '45.2K',
-      change: '+15%',
-      icon: <Users className="text-secondary-500" />,
-    },
-    {
-      title: 'Engagement Rate',
-      value: '4.8%',
-      change: '+0.6%',
-      icon: <TrendingUp className="text-accent-500" />,
-    },
-    {
-      title: 'ROI',
-      value: '3.2x',
-      change: '+0.4',
-      icon: <BarChart className="text-primary-500" />,
-    },
-  ];
+  const [stats, setStats] = useState([]);
+  const [campaignActivity, setCampaignActivity] = useState([]);
+  const [recentActivities, setRecentActivities] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const campaignActivity = [
-    {
-      campaign: 'Summer Collection Launch',
-      influencer: 'Sarah Wilson',
-      status: 'Active',
-      performance: 'Above Target',
-    },
-    {
-      campaign: 'Local Restaurant Week',
-      influencer: 'Michael Chen',
-      status: 'Active',
-      performance: 'On Target',
-    },
-    {
-      campaign: 'Fitness Challenge',
-      influencer: 'Emma Johnson',
-      status: 'Pending',
-      performance: 'Not Started',
-    },
-    {
-      campaign: 'Holiday Promotion',
-      influencer: 'David Brown',
-      status: 'Draft',
-      performance: 'Not Started',
-    },
-  ];
+  useEffect(() => {
+    const loadOverview = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchInfluencerOverview();
+        setStats([
+          {
+            title: 'Active Campaigns',
+            value: data.stats.activeCampaigns,
+            // change: '+3', // You can calculate or fetch real change data
+            icon: <Calendar className="text-primary-500" />,
+          },
+          {
+            title: 'Total Ad Requests',
+            value: data.stats.totalAdRequests,
+            // change: '+15%', // You can calculate or fetch real change data
+            icon: <Users className="text-secondary-500" />,
+          },
+          {
+            title: 'Engagement Rate',
+            value: `${data.stats.engagementRate}%`,
+            // change: '+0.6%', // You can calculate or fetch real change data
+            icon: <TrendingUp className="text-accent-500" />,
+          },
+          {
+            title: 'Total Revenue',
+            value: `$${data.stats.totalRevenue}`,
+            // change: '+0.4', // You can calculate or fetch real change data
+            icon: <BarChart className="text-primary-500" />,
+          },
+        ]);
+        setCampaignActivity(data.campaignActivity);
+        setRecentActivities(data.recentActivities);
+        setError(null);
+      } catch (err) {
+        setError('Failed to load overview data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadOverview();
+  }, []);
+
+  if (loading) {
+    return <div>Loading overview...</div>;
+  }
+
+  if (error) {
+    return <div className="text-red-600">{error}</div>;
+  }
 
   return (
     <div className="space-y-6">
@@ -110,9 +117,9 @@ const Overview = () => {
               <thead>
                 <tr className="border-b border-slate-200">
                   <th className="px-2 py-3 text-left text-xs font-medium uppercase text-slate-500">Campaign</th>
-                  <th className="px-2 py-3 text-left text-xs font-medium uppercase text-slate-500">Influencer</th>
+                  <th className="px-2 py-3 text-left text-xs font-medium uppercase text-slate-500">Business</th>
                   <th className="px-2 py-3 text-left text-xs font-medium uppercase text-slate-500">Status</th>
-                  <th className="px-2 py-3 text-left text-xs font-medium uppercase text-slate-500">Performance</th>
+                  <th className="px-2 py-3 text-left text-xs font-medium uppercase text-slate-500">Budget</th>
                 </tr>
               </thead>
               <tbody>
@@ -122,7 +129,7 @@ const Overview = () => {
                       {activity.campaign}
                     </td>
                     <td className="whitespace-nowrap px-2 py-3 text-sm text-slate-600">
-                      {activity.influencer}
+                      {activity.business}
                     </td>
                     <td className="whitespace-nowrap px-2 py-3 text-sm">
                       <span
@@ -138,7 +145,7 @@ const Overview = () => {
                       </span>
                     </td>
                     <td className="whitespace-nowrap px-2 py-3 text-sm text-slate-600">
-                      {activity.performance}
+                      {activity.budget}
                     </td>
                   </tr>
                 ))}
@@ -163,17 +170,12 @@ const Overview = () => {
           </div>
           
           <div className="space-y-4">
-            {[
-              { time: '2 hours ago', text: 'Sarah Wilson posted the Summer Collection campaign' },
-              { time: '5 hours ago', text: 'New collaboration request from Fitness First Gym' },
-              { time: '1 day ago', text: 'Campaign "Local Restaurant Week" is performing above target' },
-              { time: '2 days ago', text: 'New message from Michael Chen regarding schedule changes' },
-            ].map((activity, index) => (
+            {recentActivities.map((activity, index) => (
               <div key={index} className="flex">
                 <div className="mr-4 mt-1 h-2 w-2 rounded-full bg-primary-500"></div>
                 <div>
-                  <p className="text-sm text-slate-600">{activity.text}</p>
-                  <p className="mt-1 text-xs text-slate-400">{activity.time}</p>
+                  <p className="text-sm text-slate-600">{activity.title}</p>
+                  <p className="mt-1 text-xs text-slate-400">{new Date(activity.time).toLocaleString()}</p>
                 </div>
               </div>
             ))}
@@ -185,3 +187,4 @@ const Overview = () => {
 };
 
 export default Overview;
+
