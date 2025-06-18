@@ -2,7 +2,7 @@ export interface InfluencerOnboardingData {
   fullName: string;
   phoneNumber: string;
   gender: string;
-  dateOfBirth: string | null;
+  niche: string;
   bio: string;
   state: string;
   city: string;

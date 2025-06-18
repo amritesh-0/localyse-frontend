@@ -10,7 +10,7 @@ interface InfluencerProfileCardProps {
   state?: string;
   followers: string;
   niche: string;
-  instagramReach?: number;
+  instagramTotalPost?: number;
   gender?: string;
   instagramUsername?: string;
   onSendRequest?: () => void;
@@ -25,7 +25,7 @@ const InfluencerProfileCard: React.FC<InfluencerProfileCardProps> = ({
   state,
   followers = '0',
   niche = '',
-  instagramReach,
+  instagramTotalPost = '0',
   gender,
   instagramUsername,
   onSendRequest,
@@ -98,14 +98,14 @@ const InfluencerProfileCard: React.FC<InfluencerProfileCardProps> = ({
             <p className="text-xs text-slate-600">Followers</p>
           </div>
 
-          {/* Instagram Reach */}
-          {instagramReach !== undefined && (
+          {/* Instagram Total Post */}
+          {instagramTotalPost !== undefined && (
             <div className="text-center p-3 rounded-lg bg-slate-50 border border-slate-100">
               <div className="flex items-center justify-center mb-1">
                 <Instagram size={16} className="text-slate-500" />
               </div>
-              <p className="text-lg font-semibold text-slate-900">{instagramReach.toLocaleString()}</p>
-              <p className="text-xs text-slate-600">Daily Reach</p>
+              <p className="text-lg font-semibold text-slate-900">{instagramTotalPost.toLocaleString()}</p>
+              <p className="text-xs text-slate-600">Total Post</p>
             </div>
           )}
         </div>

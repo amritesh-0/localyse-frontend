@@ -9,7 +9,7 @@ const PersonalInfo = ({ data, onSave, loading }) => {
     fullName: '',
     phoneNumber: '',
     gender: 'male',
-    dateOfBirth: '',
+    niche: '',
     bio: '',
     state: '',
     city: '',
@@ -21,7 +21,7 @@ const PersonalInfo = ({ data, onSave, loading }) => {
         fullName: data.fullName || '',
         phoneNumber: data.phoneNumber || '',
         gender: data.gender || 'male',
-        dateOfBirth: data.dateOfBirth ? data.dateOfBirth.substring(0, 10) : '',
+        niche: data.niche || '',
         bio: data.bio || '',
         state: data.state || '',
         city: data.city || '',
@@ -74,11 +74,10 @@ const PersonalInfo = ({ data, onSave, loading }) => {
             </select>
           </div>
           <Input
-            label="Date of Birth"
-            id="dateOfBirth"
-            type="date"
-            placeholder="Your date of birth"
-            value={formData.dateOfBirth}
+            label="Niche"
+            id="niche"
+            placeholder="Your niche"
+            value={formData.niche}
             onChange={handleChange}
           />
           <div className="md:col-span-2">

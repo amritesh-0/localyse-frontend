@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import DatePicker from 'react-datepicker';
-import { User, Phone, CalendarDays, FileText, Scale as Male, Scale as Female } from 'lucide-react';
+// import DatePicker from 'react-datepicker';
+import { User, Phone, FileText, Scale as Male, Scale as Female, Tag } from 'lucide-react';
+import { FaMars, FaVenus } from "react-icons/fa";
 import Container from '../../components/ui/Container';
 import Card from '../../components/ui/Card';
 import Input from '../../components/ui/Input';
@@ -16,7 +17,7 @@ const InfluencerOnboarding = () => {
     fullName: '',
     phoneNumber: '',
     gender: '',
-    dateOfBirth: null as Date | null,
+    niche: '',
     bio: ''
   });
 
@@ -36,7 +37,7 @@ const InfluencerOnboarding = () => {
           fullName: data.fullName || '',
           phoneNumber: data.phoneNumber || '',
           gender: data.gender || '',
-          dateOfBirth: data.dateOfBirth ? new Date(data.dateOfBirth) : null,
+          niche: data.niche || '',
           bio: data.bio || ''
         });
       } catch (error) {
@@ -65,8 +66,8 @@ const InfluencerOnboarding = () => {
       newErrors.gender = 'Please select your gender';
     }
     
-    if (!formData.dateOfBirth) {
-      newErrors.dateOfBirth = 'Date of birth is required';
+    if (!formData.niche) {
+      newErrors.niche= 'niche is required';
     }
     
     if (!formData.bio.trim()) {
@@ -97,7 +98,7 @@ const InfluencerOnboarding = () => {
         fullName: formData.fullName,
         phoneNumber: formData.phoneNumber,
         gender: formData.gender,
-        dateOfBirth: formData.dateOfBirth,
+        niche: formData.niche,
         bio: formData.bio,
         state: formData.state,
         city: formData.city,
@@ -118,7 +119,7 @@ const InfluencerOnboarding = () => {
       formData.fullName.trim() !== '' &&
       formData.phoneNumber.trim() !== '' &&
       formData.gender !== '' &&
-      formData.dateOfBirth !== null &&
+      formData.niche !== '' &&
       formData.bio.trim() !== '' &&
       formData.state.trim() !== '' &&
       formData.city.trim() !== ''
@@ -192,7 +193,7 @@ const InfluencerOnboarding = () => {
                       onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
                       className="sr-only"
                     />
-                    <Male size={18} className="mr-2" />
+                    <FaMars size={18} className="mr-2" />
                     <span className="font-medium">Male</span>
                   </label>
 
@@ -211,7 +212,7 @@ const InfluencerOnboarding = () => {
                       onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
                       className="sr-only"
                     />
-                    <Female size={18} className="mr-2" />
+                    <FaVenus size={18} className="mr-2" />
                     <span className="font-medium">Female</span>
                   </label>
                 </div>
@@ -222,26 +223,19 @@ const InfluencerOnboarding = () => {
 
               <div>
                 <label className="mb-1.5 block text-sm font-medium text-slate-700">
-                  Date of Birth
+                  
                 </label>
-                <div className="relative">
-                  <CalendarDays size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-                  <DatePicker
-                    selected={formData.dateOfBirth}
-                    onChange={(date) => setFormData({ ...formData, dateOfBirth: date })}
-                    dateFormat="MMMM d, yyyy"
-                    showYearDropdown
-                    dropdownMode="select"
-                    maxDate={new Date()}
-                    className="block w-full rounded-xl border border-slate-300 bg-white pl-10 pr-3 py-2.5 text-slate-900 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
-                    placeholderText="Select your date of birth"
-                  />
-                </div>
-                {errors.dateOfBirth && (
-                  <p className="mt-1 text-sm text-red-600">{errors.dateOfBirth}</p>
-                )}
+                <Input
+                  label="Niche"
+                  id="niche"
+                  value={formData.niche}
+                  placeholder="Niche (eg. Fashion, Travel, Tech)"
+                  onChange={(e) => setFormData({ ...formData, niche: e.target.value })}
+                  icon={<Tag size={18} className="text-slate-400" />}
+                  error={errors.niche}
+                />
               </div>
-              
+
               <Input
                 label="State"
                 id="state"

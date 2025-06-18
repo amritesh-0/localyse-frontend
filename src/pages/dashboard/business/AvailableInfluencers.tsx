@@ -410,8 +410,8 @@ const handleInputChange = (
                       influencer.instagramInsights?.followers_count?.toLocaleString() || '0'
                     }
                     niche={influencer.personalInfo?.niche || ''}
-                    instagramReach={
-                      influencer.instagramInsights?.insights?.find(i => i.name === 'reach')?.values[0]?.value || 0
+                    instagramTotalPost={
+                      influencer.instagramInsights?.media_count || 0
                     }
                     gender={influencer.personalInfo?.gender || ''}
                     instagramUsername={influencer.instagramInsights?.username || ''}

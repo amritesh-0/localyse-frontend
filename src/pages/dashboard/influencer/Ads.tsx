@@ -7,6 +7,7 @@ import {
 
 import Card from '../../../components/ui/Card';
 import Button from '../../../components/ui/Button';
+import Loader from '../../../components/ui/Loader';
 import type { Ad } from '../../../services/influencerDashboard/availableAds';
 
 interface AdWithStatus extends Ad {
@@ -324,14 +325,15 @@ const InfluencerAds = () => {
               onChange={(e) => setMessage(e.target.value)}
               disabled={isSubmitting}
             />
-            <div className="mt-4 flex justify-end space-x-2">
-              <Button variant="outline" onClick={closeMessagePopup} disabled={isSubmitting}>
-                Cancel
-              </Button>
-              <Button variant="primary" onClick={handleSubmitMessage} disabled={isSubmitting}>
-                Submit
-              </Button>
-            </div>
+      <div className="mt-4 flex justify-end space-x-2">
+        <Button variant="outline" onClick={closeMessagePopup} disabled={isSubmitting}>
+          Cancel
+        </Button>
+        <Button variant="primary" onClick={handleSubmitMessage} disabled={isSubmitting} className="flex items-center justify-center">
+          {isSubmitting ? <Loader className="h-5 w-5 text-white mr-2" /> : null}
+          {isSubmitting ? 'Submitting...' : 'Submit'}
+        </Button>
+      </div>
           </div>
         </div>
       )}
