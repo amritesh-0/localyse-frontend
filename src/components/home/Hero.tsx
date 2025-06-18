@@ -17,11 +17,11 @@ const Hero = () => {
               Connect <span className="text-yellow-300">Influencers</span> with <span className="text-yellow-300">Local Businesses</span>
             </h1>
             <p className="text-lg md:text-xl opacity-90 mb-8 max-w-lg">
-              Amplify your local reach with authentic partnerships. Sazao connects businesses with the perfect local influencers to drive engagement and growth.
+              Amplify your local reach with authentic partnerships. Localyse connects businesses with the perfect local influencers to drive engagement and growth.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a
-                href="/register"
+                href="/signup"
                 className="px-6 py-3 bg-white text-indigo-600 font-medium rounded-md hover:bg-gray-100 transition-colors inline-flex items-center justify-center"
               >
                 Get Started

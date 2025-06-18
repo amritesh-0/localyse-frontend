@@ -1,61 +1,39 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { BarChart, TrendingUp, Users, Calendar } from 'lucide-react';
 import Card from '../../../components/ui/Card';
+import { getOverviewData } from '../../../services/businessDashboard/overview';
 
 const Overview = () => {
-  const stats = [
-    {
-      title: 'Total Ads',
-      value: '120',
-      change: '+10',
-      icon: <Calendar className="text-primary-500" />,
-    },
-    {
-      title: 'Active Ads',
-      value: '45',
-      change: '+5',
-      icon: <Users className="text-secondary-500" />,
-    },
-    {
-      title: 'Engagement',
-      value: '75%',
-      change: '+3%',
-      icon: <TrendingUp className="text-accent-500" />,
-    },
-    {
-      title: 'Total Spend',
-      value: '$12,500',
-      change: '+$1,200',
-      icon: <BarChart className="text-primary-500" />,
-    },
-  ];
+  const [stats, setStats] = useState([]);
+  const [campaignActivity, setCampaignActivity] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const campaignActivity = [
-    {
-      campaign: 'Summer Sale',
-      influencer: 'Sarah Wilson',
-      status: 'Active',
-      performance: 'Above Target',
-    },
-    {
-      campaign: 'Back to School',
-      influencer: 'Michael Chen',
-      status: 'Active',
-      performance: 'On Target',
-    },
-    {
-      campaign: 'Holiday Promo',
-      influencer: 'Emma Johnson',
-      status: 'Pending',
-      performance: 'Not Started',
-    },
-    {
-      campaign: 'Winter Clearance',
-      influencer: 'David Brown',
-      status: 'Draft',
-      performance: 'Not Started',
-    },
-  ];
+  useEffect(() => {
+    const fetchOverview = async () => {
+      try {
+        setLoading(true);
+        const data = await getOverviewData();
+        setStats(data.stats);
+        setCampaignActivity(data.campaignActivity);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to load overview data');
+        setLoading(false);
+      }
+    };
+
+    fetchOverview();
+  }, []);
+
+  if (loading) {
+    return <div>Loading overview...</div>;
+  }
+
+  if (error) {
+    return <div className="text-red-600">{error}</div>;
+  }
 
   return (
     <div className="space-y-6">
@@ -77,7 +55,10 @@ const Overview = () => {
           >
             <Card className="flex items-center">
               <div className="mr-4 rounded-full bg-slate-100 p-3">
-                {stat.icon}
+                {stat.title === 'Total Ads' && <Calendar className="text-primary-500" />}
+                {stat.title === 'Active Ads' && <Users className="text-secondary-500" />}
+                {stat.title === 'Engagement' && <TrendingUp className="text-accent-500" />}
+                {stat.title === 'Total Spend' && <BarChart className="text-primary-500" />}
               </div>
               <div>
                 <p className="text-sm font-medium text-slate-600">{stat.title}</p>
