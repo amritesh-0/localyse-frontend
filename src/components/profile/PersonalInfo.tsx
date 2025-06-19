@@ -4,6 +4,14 @@ import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
 import { Save } from 'lucide-react';
 
+const stateCityMap = {
+  Rajasthan: ['Jaipur'],
+  Bihar: ['Siwan', 'Chhapra', 'Gopalganj'],
+  UP: ['Gorakhpur'],
+  'West Bengal': ['Kolkata'],
+  Delhi: ['New Delhi'],
+};
+
 const PersonalInfo = ({ data, onSave, loading }) => {
   const [formData, setFormData] = useState({
     fullName: '',
@@ -34,6 +42,23 @@ const PersonalInfo = ({ data, onSave, loading }) => {
     setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
+  const handleStateChange = (e) => {
+    const selectedState = e.target.value;
+    setFormData((prev) => ({
+      ...prev,
+      state: selectedState,
+      city: '', // reset city when state changes
+    }));
+  };
+
+  const handleCityChange = (e) => {
+    const selectedCity = e.target.value;
+    setFormData((prev) => ({
+      ...prev,
+      city: selectedCity,
+    }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     onSave(formData);
@@ -59,27 +84,70 @@ const PersonalInfo = ({ data, onSave, loading }) => {
             value={formData.phoneNumber}
             onChange={handleChange}
           />
-          <div className="md:col-span-2">
-            <label className="mb-1.5 block text-sm font-medium text-slate-700">
-              Gender
+          <div className="md:col-span-2 flex items-center space-x-4">
+            <div className="flex-1">
+              <label className="mb-1.5 block text-sm font-medium text-slate-700">
+                Gender
+              </label>
+              <select
+                id="gender"
+                className="block w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                value={formData.gender}
+                onChange={handleChange}
+              >
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+            <div className="flex-1">
+              <Input
+                label="Niche"
+                id="niche"
+                placeholder="Your niche"
+                value={formData.niche}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+          
+          <div>
+            <label htmlFor="state" className="mb-1.5 block text-sm font-medium text-slate-700">
+              State
             </label>
             <select
-              id="gender"
-              className="block w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
-              value={formData.gender}
-              onChange={handleChange}
+              id="state"
+              value={formData.state}
+              onChange={handleStateChange}
+              className="block w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-slate-900 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
             >
-              <option value="male">Male</option>
-              <option value="female">Female</option>
+              <option value="">Select State</option>
+              {Object.keys(stateCityMap).map((state) => (
+                <option key={state} value={state}>
+                  {state}
+                </option>
+              ))}
             </select>
           </div>
-          <Input
-            label="Niche"
-            id="niche"
-            placeholder="Your niche"
-            value={formData.niche}
-            onChange={handleChange}
-          />
+          <div>
+            <label htmlFor="city" className="mb-1.5 block text-sm font-medium text-slate-700">
+              City
+            </label>
+            <select
+              id="city"
+              value={formData.city}
+              onChange={handleCityChange}
+              disabled={!formData.state}
+              className="block w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-slate-900 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:cursor-not-allowed disabled:bg-slate-100"
+            >
+              <option value="">Select City</option>
+              {formData.state &&
+                stateCityMap[formData.state].map((city) => (
+                  <option key={city} value={city}>
+                    {city}
+                  </option>
+                ))}
+            </select>
+          </div>
           <div className="md:col-span-2">
             <label htmlFor="bio" className="mb-1.5 block text-sm font-medium text-slate-700">
               Bio
@@ -93,20 +161,6 @@ const PersonalInfo = ({ data, onSave, loading }) => {
               onChange={handleChange}
             />
           </div>
-          <Input
-            label="State"
-            id="state"
-            placeholder="Your state"
-            value={formData.state}
-            onChange={handleChange}
-          />
-          <Input
-            label="City"
-            id="city"
-            placeholder="Your city"
-            value={formData.city}
-            onChange={handleChange}
-          />
         </div>
         <div className="mt-6 flex justify-end">
           <Button type="submit" icon={<Save size={16} />} disabled={loading}>

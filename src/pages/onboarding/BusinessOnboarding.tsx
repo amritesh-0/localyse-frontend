@@ -7,6 +7,14 @@ import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
 import { upsertBusinessOnboarding , getBusinessOnboarding} from '../../services/OnboardingData/onboardingApi';
 
+const stateCityMap: Record<string, string[]> = {
+  Rajasthan: ['Jaipur'],
+  Bihar: ['Siwan', 'Chhapra', 'Gopalganj'],
+  UP: ['Gorakhpur'],
+  'West Bengal': ['Kolkata'],
+  Delhi: ['New Delhi'],
+};
+
 const BusinessOnboarding = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -181,23 +189,58 @@ const BusinessOnboarding = () => {
                 error={errors.businessWebsite}
               />
 
-              <Input
-                label="State"
-                id="state"
-                value={formData.state}
-                placeholder="State"
-                onChange={(e) => setFormData({ ...formData, state: e.target.value })}
-                error={errors.state}
-              />
+              <div>
+                <label htmlFor="state" className="mb-1.5 block text-sm font-medium text-slate-700">
+                  State
+                </label>
+                <select
+                  id="state"
+                  value={formData.state}
+                  onChange={(e) => {
+                    const selectedState = e.target.value;
+                    setFormData({
+                      ...formData,
+                      state: selectedState,
+                      city: '' // reset city when state changes
+                    });
+                  }}
+                  className="block w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-slate-900 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                >
+                  <option value="">Select State</option>
+                  {Object.keys(stateCityMap).map((state) => (
+                    <option key={state} value={state}>
+                      {state}
+                    </option>
+                  ))}
+                </select>
+                {errors.state && (
+                  <p className="mt-1 text-sm text-red-600">{errors.state}</p>
+                )}
+              </div>
 
-              <Input
-                label="City"
-                id="city"
-                value={formData.city}
-                placeholder="City"
-                onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                error={errors.city}
-              />
+              <div>
+                <label htmlFor="city" className="mb-1.5 block text-sm font-medium text-slate-700">
+                  City
+                </label>
+                <select
+                  id="city"
+                  value={formData.city}
+                  onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                  disabled={!formData.state}
+                  className="block w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-slate-900 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500 disabled:cursor-not-allowed disabled:bg-slate-100"
+                >
+                  <option value="">Select City</option>
+                  {formData.state &&
+                    stateCityMap[formData.state].map((city) => (
+                      <option key={city} value={city}>
+                        {city}
+                      </option>
+                    ))}
+                </select>
+                {errors.city && (
+                  <p className="mt-1 text-sm text-red-600">{errors.city}</p>
+                )}
+              </div>
 
               <div>
                 <label htmlFor="additionalInfo" className="mb-1.5 block text-sm font-medium text-slate-700">

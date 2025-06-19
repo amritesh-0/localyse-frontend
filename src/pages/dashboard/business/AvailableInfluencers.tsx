@@ -390,7 +390,7 @@ const handleInputChange = (
         >
           {filteredInfluencers.length === 0 ? (
             <div className="col-span-full text-center py-12">
-              <p className="text-slate-600">No influencers found matching your criteria.</p>
+              <p className="text-slate-600">No influencers found matching your criteria or location right now.</p>
             </div>
           ) : (
             filteredInfluencers.map((influencer) => {
