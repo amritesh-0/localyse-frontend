@@ -80,7 +80,8 @@ const LinkedAccounts = () => {
                 <span>Linked</span>
               </span>
             ) : (
-              <span className="italic text-slate-400">Not Linked</span>
+              // <span className="italic text-slate-400">Not Linked</span>
+              <span className="italic text-slate-400">Coming Soon</span>
             )}
           </div>
         </div>
@@ -96,7 +97,8 @@ const LinkedAccounts = () => {
                 <span>Linked</span>
               </span>
             ) : (
-              <span className="italic text-slate-400">Not Linked</span>
+                <span className="italic text-slate-400">Coming Soon</span>
+              // <span className="italic text-slate-400">Not Linked</span>
             )}
           </div>
         </div>
@@ -112,7 +114,8 @@ const LinkedAccounts = () => {
                 <span>Linked</span>
               </span>
             ) : (
-              <span className="italic text-slate-400">Not Linked</span>
+                <span className="italic text-slate-400">Coming Soon</span>
+              // <span className="italic text-slate-400">Not Linked</span>
             )}
           </div>
         </div>

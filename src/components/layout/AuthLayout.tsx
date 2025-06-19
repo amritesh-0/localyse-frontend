@@ -1,14 +1,13 @@
 import { Outlet, Link } from 'react-router-dom';
-import { Sparkles } from 'lucide-react';
+import Logo from '../../assets/Logo.png';
 
 const AuthLayout = () => {
   return (
     <div className="flex min-h-screen flex-col">
       
     <div className="pt-6">
-        <Link to="/" className="flex items-center gap-2 text-2xl font-semibold text-primary-700 hover:text-primary-900 transition-colors">
-          <Sparkles className="h-6 w-6 text-primary-600" />
-          <span>Localyse</span>
+        <Link to="/" className="flex items-center">
+          <img src={Logo} alt="Logo" className="h-12 w-auto" />
         </Link>
       </div>
 

@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Home, FileText, ClipboardList, Users, HelpCircle, User, LogOut, ChevronLeft, Menu
 } from 'lucide-react';
 import { useAuth } from '../../../context/AuthContext'; // ✅ Update the path as needed
+import Logo from '../../../assets/Logo.png';
 
 interface SidebarProps {
   children?: React.ReactNode;
@@ -75,7 +76,13 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
       >
         <div className="flex h-full flex-col">
           <div className="flex h-16 items-center justify-between px-4 border-b">
-            <span className="text-xl font-semibold text-primary-700">Localyse</span>
+            <Link to="/" className="flex items-center">
+              {isOpen ? (
+                <img src={Logo} alt="Logo" className="h-12 w-auto" />
+              ) : (
+                <span className="text-xl font-semibold text-primary-700">L</span>
+              )}
+            </Link>
             <button onClick={toggleMobileSidebar} className="rounded-lg p-2 text-slate-500 hover:bg-slate-100">
               <ChevronLeft size={20} />
             </button>
@@ -119,7 +126,13 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
       >
         <div className="flex h-full flex-col">
           <div className="flex h-16 items-center justify-between px-4 border-b">
-            <span className="text-xl font-semibold text-primary-700">{isOpen ? 'Localyse' : 'L'}</span>
+            <Link to="/" className="flex items-center">
+              {isOpen ? (
+                <img src={Logo} alt="Logo" className="h-12 w-auto" />
+              ) : (
+                <span className="text-xl font-semibold text-primary-700">L</span>
+              )}
+            </Link>
             <button
               onClick={toggleSidebar}
               className="rounded-lg p-2 text-slate-500 hover:bg-slate-100"

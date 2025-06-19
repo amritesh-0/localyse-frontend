@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Menu, X, Sparkles } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import Container from '../ui/Container';
 import Button from '../ui/Button';
 import Navbar from './Navbar';
+import Logo from '../../assets/Logo.png';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -37,12 +38,9 @@ const Header = () => {
       <Container>
         <div className="flex h-16 items-center justify-between md:h-20">
           {/* Logo */}
-       
-        <Link to="/" className="flex items-center gap-2 text-2xl font-semibold text-primary-700 hover:text-primary-900 transition-colors">
-          <Sparkles className="h-6 w-6 text-primary-600" />
-          <span>Localyse</span>
-        </Link>
-      
+          <Link to="/" className="flex items-center">
+            <img src={Logo} alt="Logo" className="h-12 w-auto" />
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:block">
