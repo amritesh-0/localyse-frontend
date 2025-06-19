@@ -1,4 +1,7 @@
+
 import { Routes, Route, Navigate  } from 'react-router-dom';
+
+import ScrollToTop from './components/layout/ScrollToTop';
 
 //layouts
 import MainLayout from './components/layout/MainLayout';
@@ -68,55 +71,58 @@ function AppContent() {
   }
 
   return (
-    <Routes>
-      <Route path="/" element={<MainLayout />}>
-        <Route index element={<Home />} />
-        <Route path="about" element={<AboutPage />} />
-        <Route path="contact" element={<ContactPage />} />
-        <Route path="features" element={<FeaturesPage />} />
-        <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
-        <Route path="terms" element={<TermsPage />} />
-        <Route path="cookie-policy" element={<CookiePolicyPage />} />
-      </Route>
-      <Route element={<AuthLayout />}>
-        <Route path="login" element={<LoginPage />} />
-        <Route path="forgot-password" element={<ForgotPasswordPage />} />
-        <Route path="reset-password" element={<ResetPasswordPage />} />
-        <Route path="signup" element={<SignupPage />} />
-        <Route path="verify-email" element={<VerifyEmailPage />} />
-        <Route path="verify-otp" element={<VerifyOtp />} />
-        <Route path="onboarding/business" element={<BusinessOnboarding />} />
-        <Route path="onboarding/influencer" element={<InfluencerOnboarding />} />
-        <Route path="onboarding/linksocials" element={<LinkSocials />} />
-      </Route>
-
-      {/* Influencer Dashboard Routes */}
-      <Route element={<ProtectedRoute allowedRoles={['influencer']} />}>
-        <Route path="dashboard/influencer" element={<InfluencerDashboardLayout />}>
-          <Route index element={<InfluencerOverview />} />
-          <Route path='overview' element={< InfluencerOverview />} />
-          <Route path="ads" element={<InfluencerAds />} />
-          <Route path="requests" element={<InfluencerRequests />} />
-          <Route path="track-campaign/:adId" element={<TrackCampaignInfluencer />} />
-          <Route path="profile" element={<InfluencerProfile />} />
-          <Route path="help" element={<InfluencerHelp />} />
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<AboutPage />} />
+          <Route path="contact" element={<ContactPage />} />
+          <Route path="features" element={<FeaturesPage />} />
+          <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="terms" element={<TermsPage />} />
+          <Route path="cookie-policy" element={<CookiePolicyPage />} />
         </Route>
-      </Route>
-
-      {/* Business Dashboard Routes */}
-      <Route element={<ProtectedRoute allowedRoles={['business']} />}>
-        <Route path="dashboard/business" element={<BusinessDashboardLayout />}>
-          <Route index element={<BusinessOverview />} />
-          <Route path='overview' element={< BusinessOverview/>} />
-          <Route path="post-ads" element={<BusinessPostAds />} />
-          <Route path="applications" element={<BusinessApplications />} />
-          <Route path="influencers" element={<BusinessInfluencers />} />
-          <Route path="profile" element={<BusinessProfile />} />
-          <Route path="help" element={<BusinessHelp />} />
-          <Route path="track-campaign/:adId" element={<TrackCampaignBusiness />} />
+        <Route element={<AuthLayout />}>
+          <Route path="login" element={<LoginPage />} />
+          <Route path="forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="reset-password" element={<ResetPasswordPage />} />
+          <Route path="signup" element={<SignupPage />} />
+          <Route path="verify-email" element={<VerifyEmailPage />} />
+          <Route path="verify-otp" element={<VerifyOtp />} />
+          <Route path="onboarding/business" element={<BusinessOnboarding />} />
+          <Route path="onboarding/influencer" element={<InfluencerOnboarding />} />
+          <Route path="onboarding/linksocials" element={<LinkSocials />} />
         </Route>
-      </Route>
-    </Routes>
+
+        {/* Influencer Dashboard Routes */}
+        <Route element={<ProtectedRoute allowedRoles={['influencer']} />}>
+          <Route path="dashboard/influencer" element={<InfluencerDashboardLayout />}>
+            <Route index element={<InfluencerOverview />} />
+            <Route path='overview' element={< InfluencerOverview />} />
+            <Route path="ads" element={<InfluencerAds />} />
+            <Route path="requests" element={<InfluencerRequests />} />
+            <Route path="track-campaign/:adId" element={<TrackCampaignInfluencer />} />
+            <Route path="profile" element={<InfluencerProfile />} />
+            <Route path="help" element={<InfluencerHelp />} />
+          </Route>
+        </Route>
+
+        {/* Business Dashboard Routes */}
+        <Route element={<ProtectedRoute allowedRoles={['business']} />}>
+          <Route path="dashboard/business" element={<BusinessDashboardLayout />}>
+            <Route index element={<BusinessOverview />} />
+            <Route path='overview' element={< BusinessOverview/>} />
+            <Route path="post-ads" element={<BusinessPostAds />} />
+            <Route path="applications" element={<BusinessApplications />} />
+            <Route path="influencers" element={<BusinessInfluencers />} />
+            <Route path="profile" element={<BusinessProfile />} />
+            <Route path="help" element={<BusinessHelp />} />
+            <Route path="track-campaign/:adId" element={<TrackCampaignBusiness />} />
+          </Route>
+        </Route>
+      </Routes>
+    </>
   );
 }
 
