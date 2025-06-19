@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Container from '../ui/Container';
 import Card from '../ui/Card';
 import Button from '../ui/Button';
@@ -122,9 +123,19 @@ const PricingSection = () => {
 
                 <div className="mb-6">
                   <h3 className="text-xl font-semibold text-slate-900">{plan.name}</h3>
-                  <div className="mt-4 flex items-baseline">
-                    <span className="text-4xl font-bold text-slate-900">${plan.price}</span>
-                    <span className="ml-1 text-slate-600">{plan.period}</span>
+                  <div className="mt-4 flex items-baseline space-x-2">
+                    {plan.name === 'Free' ? (
+                      <>
+                        <span className="text-4xl font-bold text-slate-900">${plan.price}</span>
+                        <span className="ml-1 text-slate-600">{plan.period}</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="line-through text-slate-500 text-2xl font-semibold">${plan.price}</span>
+                        <span className="text-2xl font-bold text-green-600">Free for now</span>
+                        <span className="ml-1 text-slate-600">{plan.period}</span>
+                      </>
+                    )}
                   </div>
                   <p className="mt-2 text-sm text-slate-600">{plan.description}</p>
                 </div>
@@ -138,9 +149,17 @@ const PricingSection = () => {
                   ))}
                 </ul>
 
-                <Button variant={plan.ctaVariant} fullWidth>
-                  {plan.cta}
-                </Button>
+                {plan.name === 'Business' ? (
+                  <Link to="/contact" className="w-full">
+                    <Button variant={plan.ctaVariant} fullWidth as="div">
+                      {plan.cta}
+                    </Button>
+                  </Link>
+                ) : (
+                  <Button variant={plan.ctaVariant} fullWidth>
+                    {plan.cta}
+                  </Button>
+                )}
               </Card>
             </motion.div>
           ))}
