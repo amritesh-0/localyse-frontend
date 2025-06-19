@@ -80,7 +80,7 @@ const PrivacyPolicyPage = () => {
     },
     {
       title: "Contact Us",
-      content: "If you have any questions about this Privacy Policy, please contact us at privacy@localyse.in."
+      content: "If you have any questions about this Privacy Policy, please contact us at help.localyse@gmail.com."
     }
   ];
 
@@ -130,8 +130,8 @@ const PrivacyPolicyPage = () => {
           <div className="mt-8 text-center text-sm text-slate-500">
             <p>
               For any privacy-related questions, please contact us at{' '}
-              <a href="mailto:privacy@localyse.in" className="text-primary-600 hover:underline">
-                privacy@localyse.in
+              <a href="mailto:help.localyse@gmail.com" className="text-primary-600 hover:underline">
+                help.localyse@gmail.com
               </a>
             </p>
           </div>

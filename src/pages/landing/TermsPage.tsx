@@ -56,7 +56,7 @@ const TermsPage = () => {
     },
     {
       title: "12. Contact Us",
-      content: "If you have any questions about these Terms, please contact us at legal@localyse.com."
+      content: "If you have any questions about these Terms, please contact us at help.localyse@gmail.com."
     }
   ];
 
@@ -98,8 +98,8 @@ const TermsPage = () => {
             </p>
             <p className="mt-2">
               For any questions, please contact us at{' '}
-              <a href="mailto:legal@localyse.com" className="text-primary-600 hover:underline">
-                legal@localyse.com
+              <a href="help.localyse@gmail.com" className="text-primary-600 hover:underline">
+                help.localyse@gmail.com
               </a>
             </p>
           </div>

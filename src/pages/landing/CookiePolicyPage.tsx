@@ -53,7 +53,7 @@ const CookiePolicyPage = () => {
     },
     {
       title: "Where can you get further information?",
-      content: "If you have any questions about our use of cookies or other technologies, please email us at privacy@localyse.com."
+      content: "If you have any questions about our use of cookies or other technologies, please email us at help.localyse@gmail.com."
     }
   ];
 

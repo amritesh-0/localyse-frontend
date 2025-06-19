@@ -43,15 +43,15 @@ const Testimonials = () => {
   const testimonials = [
     {
       quote: "Localyse has transformed how we approach local marketing. We've seen a 3x ROI on our campaigns with authentic engagement from real customers.",
-      author: "Sarah Johnson",
+      author: "Ravi Kumar",
       role: "Marketing Director",
       company: "Urban Cafe Chain"
     },
     {
       quote: "As a micro-influencer, Localyse has connected me with local businesses that perfectly align with my values. The platform is intuitive and the campaign management tools save me hours.",
-      author: "Marcus Chen",
+      author: "Ayush Agarwal",
       role: "Lifestyle Influencer",
-      company: "@marcusexplores"
+      company: "@vlogwithayush"
     },
     {
       quote: "We were struggling to reach our local audience effectively. Localyse matched us with the perfect neighborhood influencers, and we've seen foot traffic increase by 40%.",
@@ -61,19 +61,19 @@ const Testimonials = () => {
     },
     {
       quote: "The analytics and reporting features are incredible. I can show my clients exactly how our influencer campaigns are performing and justify every marketing dollar spent.",
-      author: "David Rodriguez",
+      author: "Shad Husain",
       role: "Agency Founder",
       company: "Local Edge Marketing"
     },
     {
       quote: "I've tried other platforms, but Localyse's focus on local markets makes all the difference. My content feels authentic, and my followers appreciate the local business recommendations.",
-      author: "Emma Wright",
+      author: "Aradhya Singh",
       role: "Food & Travel Creator",
-      company: "@emmatastestheworld"
+      company: "@lifewitharadhya"
     },
     {
       quote: "The automated campaign management has reduced our marketing overhead by 30%. We're reaching more customers with less effort than ever before.",
-      author: "Michael Barnes",
+      author: "Sanjay Mehta",
       role: "CEO",
       company: "FitZone Gyms"
     }
