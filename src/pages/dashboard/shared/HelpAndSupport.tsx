@@ -2,8 +2,16 @@ import { motion } from 'framer-motion';
 import { HelpCircle, Book, MessageSquare, Play, FileText } from 'lucide-react';
 import Card from '../../../components/ui/Card';
 import Button from '../../../components/ui/Button';
+import Chat from '../../../components/ui/Chat';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../context/AuthContext';
 
 const HelpAndSupport = () => {
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
   const helpCategories = [
     {
       title: 'Getting Started',
@@ -37,6 +45,15 @@ const HelpAndSupport = () => {
     },
   ];
 
+  const handleContactUsClick = () => {
+    if (user?.type === 'business') {
+      navigate('/dashboard/business/support/email');
+    } else {
+      // Default to influencer if user type is not business
+      navigate('/dashboard/influencer/support/email');
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div>
@@ -61,12 +78,20 @@ const HelpAndSupport = () => {
               </p>
             </div>
             <div className="flex space-x-3">
-              <Button variant="outline" className="border-white bg-transparent text-white hover:bg-white hover:text-primary-700">
+              <Button
+                variant="outline"
+                className="border-white bg-transparent text-white hover:bg-white hover:text-primary-700"
+                onClick={() => setIsChatOpen(true)}
+              >
                 <MessageSquare size={16} className="mr-2" />
                 Live Chat
               </Button>
-              <Button variant="outline" className="border-white bg-transparent text-white hover:bg-white hover:text-primary-700">
-                Contact Us
+              <Button
+                variant="outline"
+                className="border-white bg-transparent text-white hover:bg-white hover:text-primary-700"
+                onClick={handleContactUsClick}
+              >
+                Email Us
               </Button>
             </div>
           </div>
@@ -163,6 +188,8 @@ const HelpAndSupport = () => {
           </div>
         </Card>
       </motion.div>
+
+      {isChatOpen && <Chat onClose={() => setIsChatOpen(false)} />}
     </div>
   );
 };

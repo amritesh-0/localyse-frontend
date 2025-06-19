@@ -1,11 +1,9 @@
-
 import { Routes, Route, Navigate  } from 'react-router-dom';
-
-import ScrollToTop from './components/layout/ScrollToTop';
 
 //layouts
 import MainLayout from './components/layout/MainLayout';
 import AuthLayout from './components/layout/AuthLayout';
+import ScrollToTop from './components/layout/ScrollToTop';
 
 // Landing Pages
 import Home from './pages/landing/Home';
@@ -35,6 +33,9 @@ import InfluencerRequests from './pages/dashboard/influencer/Requests';
 import TrackCampaignInfluencer from './pages/dashboard/influencer/TrackCampaignInfluencer';
 import InfluencerProfile from './pages/dashboard/influencer/influencerProfile';
 import InfluencerHelp from './pages/dashboard/shared/HelpAndSupport';
+
+// Shared Dashboard
+import EmailSupport from './pages/dashboard/shared/EmailSupport';
 
 // Business Dashboard
 import BusinessDashboardLayout from './components/layout/BusinessDashboardLayout';
@@ -105,6 +106,7 @@ function AppContent() {
             <Route path="track-campaign/:adId" element={<TrackCampaignInfluencer />} />
             <Route path="profile" element={<InfluencerProfile />} />
             <Route path="help" element={<InfluencerHelp />} />
+            <Route path="support/email" element={<EmailSupport />} />
           </Route>
         </Route>
 
@@ -118,6 +120,7 @@ function AppContent() {
             <Route path="influencers" element={<BusinessInfluencers />} />
             <Route path="profile" element={<BusinessProfile />} />
             <Route path="help" element={<BusinessHelp />} />
+            <Route path="support/email" element={<EmailSupport />} />
             <Route path="track-campaign/:adId" element={<TrackCampaignBusiness />} />
           </Route>
         </Route>
