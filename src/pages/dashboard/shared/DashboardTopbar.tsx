@@ -14,7 +14,12 @@ const DashboardTopbar: React.FC<DashboardTopbarProps> = ({ userType }) => {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null);
+  const [visibleCount, setVisibleCount] = useState(2);
   const { logout, user } = useAuth();
+
+  const handleViewMore = () => {
+    setVisibleCount((prev) => prev + 2);
+  };
 
   useEffect(() => {
     const loadNotifications = async () => {
@@ -31,10 +36,10 @@ const DashboardTopbar: React.FC<DashboardTopbarProps> = ({ userType }) => {
 
   return (
     <div className="flex h-16 items-center justify-between border-b bg-white px-4 lg:px-8">
-      {/* Left side - empty for now, could add breadcrumbs later */}
+      {/* Left side placeholder */}
       <div></div>
 
-      {/* Right side - notifications and profile */}
+      {/* Right side - Notifications and Profile */}
       <div className="flex items-center space-x-4">
         {/* Notifications */}
         <div className="relative">
@@ -52,11 +57,11 @@ const DashboardTopbar: React.FC<DashboardTopbarProps> = ({ userType }) => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 10 }}
-                className="absolute right-0 mt-2 w-80 rounded-xl bg-white p-4 shadow-lg"
+                className="absolute mt-2 left-0 sm:right-0 sm:left-auto w-72 min-w-[16rem] max-w-[90vw] rounded-xl bg-white p-4 shadow-lg box-border overflow-auto"
               >
                 <h3 className="mb-4 font-medium text-slate-900">Notifications</h3>
                 <div className="space-y-3">
-                  {notifications.map((notification: any) => (
+                  {notifications.slice(0, visibleCount).map((notification: any) => (
                     <div
                       key={notification._id}
                       className={`flex items-start rounded-lg p-2 transition-colors ${
@@ -77,6 +82,14 @@ const DashboardTopbar: React.FC<DashboardTopbarProps> = ({ userType }) => {
                       )}
                     </div>
                   ))}
+                  {visibleCount < notifications.length && (
+                    <button
+                      onClick={handleViewMore}
+                      className="w-full rounded-md bg-primary-100 py-2 text-center text-sm font-medium text-primary-700 hover:bg-primary-200"
+                    >
+                      View More
+                    </button>
+                  )}
                 </div>
               </motion.div>
             )}
@@ -94,10 +107,11 @@ const DashboardTopbar: React.FC<DashboardTopbarProps> = ({ userType }) => {
               alt="Profile"
               className="h-8 w-8 rounded-full object-cover"
             />
-            <span className="text-sm font-medium text-slate-700">{user?.name || (userType === 'influencer' ? 'Influencer User' : 'Business User')}</span>
+            <span className="text-sm font-medium text-slate-700">
+              {user?.name || (userType === 'influencer' ? 'Influencer User' : 'Business User')}
+            </span>
             <ChevronDown size={16} className="text-slate-400" />
           </button>
-
           <AnimatePresence>
             {isProfileOpen && (
               <motion.div

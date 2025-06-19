@@ -3,9 +3,6 @@ import { NavLink, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Home,
-  Users,
-  BarChart2,
-  Settings,
   HelpCircle,
   ChevronLeft,
   Menu,
@@ -13,7 +10,6 @@ import {
   FileText,
   ClipboardList,
   User,
-  MessageCircle
 } from 'lucide-react';
 import { useAuth } from '../../../context/AuthContext'; 
 import Logo from '../../../assets/Logo.png';
@@ -86,13 +82,11 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
       >
         <div className="flex h-full flex-col">
           <div className="flex h-16 items-center justify-between px-4 border-b">
-            <Link to="/" className="flex items-center">
-              {isOpen ? (
+             {isOpen ? (
                 <img src={Logo} alt="Logo" className="h-12 w-auto" />
               ) : (
                 <span className="text-xl font-semibold text-primary-700">L</span>
               )}
-            </Link>
             <button
               onClick={toggleMobileSidebar}
               className="rounded-lg p-2 text-slate-500 hover:bg-slate-100"
@@ -106,6 +100,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
               <NavLink
                 key={item.path}
                 to={item.path}
+                onClick={() => setIsMobileOpen(false)}
                 className={({ isActive }) =>
                   `flex items-center space-x-3 rounded-lg px-3 py-2 ${
                     isActive
@@ -173,7 +168,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
           </nav>
 
           <div className="border-t p-4">
-            <button onClick={() => { logout(); window.location.href = '/login'; }} className={`flex ${isOpen ? 'w-full items-center space-x-3' : 'justify-center w-full'} rounded-lg px-3 py-2 text-slate-700 hover:bg-slate-100`}>
+            <button onClick={() => { logout(); window.location.href = '/login'; }} className={`flex ${isOpen ? 'w-full items-center space-x-3' : 'justify-center w-full'} rounded-lg px-3 py-2 text-red-700 hover:bg-red-50`}>
               <LogOut size={20} />
               {isOpen && <span>Logout</span>}
             </button>
