@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, Hash, DollarSign, Users, Trash2, Clock, Star, TrendingUp } from 'lucide-react';
+import { Calendar, Hash, IndianRupee, Users, Trash2, Clock, Star, TrendingUp } from 'lucide-react';
 
 interface AdCardProps {
   ad: {
@@ -193,7 +193,7 @@ const AdCard: React.FC<AdCardProps> = ({ ad, onDelete }) => {
             {ad.barterOrPaid === 'paid' && ad.budget ? (
               <div className="bg-green-50 rounded-xl p-3 border border-green-100">
                 <div className="flex items-center space-x-2 mb-1">
-                  <DollarSign size={14} className="text-green-500" />
+                  <IndianRupee size={14} className="text-green-500" />
                   <span className="text-xs font-medium text-green-700">Budget</span>
                 </div>
                 <div className="text-lg font-bold text-green-900">${ad.budget.toLocaleString()}</div>
@@ -233,7 +233,7 @@ const AdCard: React.FC<AdCardProps> = ({ ad, onDelete }) => {
         <div className="flex items-center justify-center space-x-2">
           {ad.barterOrPaid === 'paid' ? (
             <>
-              <DollarSign size={16} />
+              <IndianRupee size={16} />
               <span>Paid Campaign</span>
             </>
           ) : (

@@ -116,7 +116,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
           </nav>
 
           <div className="border-t p-4">
-            <button onClick={() => { logout(); window.location.href = '/login'; }} className="flex w-full items-center space-x-3 rounded-lg px-3 py-2 text-slate-700 hover:bg-slate-100">
+            <button onClick={() => { logout(); window.location.href = '/login'; }} className="flex w-full items-center space-x-3 rounded-lg px-3 py-2 text-red-700 hover:bg-red-50">
               <LogOut size={20} />
               <span>Logout</span>
             </button>

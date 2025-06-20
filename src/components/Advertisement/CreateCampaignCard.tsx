@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Plus, Calendar, Hash, DollarSign, Users, MessageSquare, Loader } from 'lucide-react';
+import { X, Plus, Calendar, Hash, IndianRupee, Users, MessageSquare, Loader } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Card from '../ui/Card';
 import Button from '../ui/Button';
@@ -202,7 +202,7 @@ const CreateCampaignCard: React.FC<CreateCampaignCardProps> = ({
             type="number"
             value={formData.budget}
             onChange={handleInputChange}
-            icon={<DollarSign size={18} className="text-slate-400" />}
+            icon={<IndianRupee size={18} className="text-slate-400" />}
             required
           />
         )}

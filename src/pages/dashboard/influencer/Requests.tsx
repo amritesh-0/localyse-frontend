@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, XCircle, Clock, DollarSign, MessageSquare } from 'lucide-react';
+import { CheckCircle, XCircle, Clock, IndianRupee, MessageSquare } from 'lucide-react';
 import Card from '../../../components/ui/Card';
 import Button from '../../../components/ui/Button';
 import { getRequestsForInfluencer, updateRequestStatus } from '../../../services/influencerDashboard/requestAds';
@@ -90,12 +90,28 @@ const InfluencerRequests = () => {
                       className="h-48 w-full object-cover md:h-full"
                     />
                   </div>
-
+                
                   <div className="flex-1 p-6">
                     <div className="mb-4">
-                      <h3 className="text-xl font-semibold text-slate-900">{request.ad.campaignName}</h3>
-                      <p className="text-sm text-slate-600">{request.business.name || ''}</p>
+                      <h2 className="text-2xl font-semibold text-slate-900">{request.ad.campaignName}</h2>
+                      <h5 className="text-sm text-slate-600">Requested by: {request.business.name || ''}</h5>
                     </div>
+
+                    <div className="mb-6 rounded-lg bg-slate-50 p-4">
+                      <div>
+                        <p className="text-sm font-medium text-slate-700 mb-1">Requirements: {request.ad.requirements || 'No specific requirements.'}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-slate-700 mb-1">Platforms: {request.ad.platforms.join(', ')} </p>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-slate-700 mb-1">Post or Stories:  {request.ad.taskCount || 'Not specified'}</p>
+                      </div>
+                         <div>
+                        <p className="text-sm font-medium text-slate-700 mb-1">Description: {request.ad.campaignDescription || 'No description provided.'}</p>
+                      </div>
+                    </div>
+                 
 
                     <div className="mb-4 flex items-center space-x-4 text-sm text-slate-600">
                       <div className="flex items-center space-x-1">
@@ -103,18 +119,10 @@ const InfluencerRequests = () => {
                         <span>Due: {new Date(request.ad.endDate).toLocaleDateString()}</span>
                       </div>
                       <div className="flex items-center space-x-1 font-medium text-green-600">
-                        <DollarSign size={16} />
-                        <span>{request.ad.budget}</span>
+                        <IndianRupee size={16} />
+                        <span>{request.ad.budget ? request.ad.budget :'Barter'}</span>
                       </div>
                     </div>
-
-                    <div className="mb-6 rounded-lg bg-slate-50 p-4">
-                      <div className="flex items-start space-x-2">
-                        <MessageSquare size={16} className="mt-1 text-slate-400" />
-                        <p className="text-sm text-slate-600">{request.ad.campaignDescription}</p>
-                      </div>
-                    </div>
-
                     <div className="flex space-x-3">
                       {request.status === 'accepted' ? (
                         <>

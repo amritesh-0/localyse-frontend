@@ -287,7 +287,7 @@ const BusinessApplications: React.FC = () => {
                 <div className="flex flex-col sm:flex-row sm:space-x-4 text-sm text-slate-500 space-y-2 sm:space-y-0">
                   <span><strong>Campaign:</strong> {app.ad?.campaignName}</span>
                   <span><strong>Deadline:</strong> {app.ad && (app.ad as any).endDate ? new Date((app.ad as any).endDate).toLocaleDateString() : ''}</span>
-                  <span><strong>Budget:</strong> {app.ad && (app.ad as any).budget != null ? `$${(app.ad as any).budget}` : 'barter'}</span>
+                  <span><strong>Budget:</strong> {app.ad && (app.ad as any).budget != null ? `₹${(app.ad as any).budget}` : 'barter'}</span>
                   <span className="flex space-x-2 items-center">
                     {app.ad && (app.ad as any).platforms?.map((p: string) => (
                       <span key={p}>{getPlatformIcon(p)}</span>

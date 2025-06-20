@@ -126,12 +126,12 @@ const PricingSection = () => {
                   <div className="mt-4 flex items-baseline space-x-2">
                     {plan.name === 'Free' ? (
                       <>
-                        <span className="text-4xl font-bold text-slate-900">${plan.price}</span>
+                        <span className="text-4xl font-bold text-slate-900">₹{plan.price}</span>
                         <span className="ml-1 text-slate-600">{plan.period}</span>
                       </>
                     ) : (
                       <>
-                        <span className="line-through text-slate-500 text-2xl font-semibold">${plan.price}</span>
+                        <span className="line-through text-slate-500 text-2xl font-semibold">₹{plan.price}</span>
                         <span className="text-2xl font-bold text-green-600">Free for now</span>
                         <span className="ml-1 text-slate-600">{plan.period}</span>
                       </>

@@ -28,7 +28,7 @@ const Overview = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading overview...</div>;
+    return <div>Seat relax! Loading overview...</div>;
   }
 
   if (error) {
@@ -93,7 +93,7 @@ const Overview = () => {
                   <th className="px-2 py-3 text-left text-xs font-medium uppercase text-slate-500">Campaign</th>
                   <th className="px-2 py-3 text-left text-xs font-medium uppercase text-slate-500">Influencer</th>
                   <th className="px-2 py-3 text-left text-xs font-medium uppercase text-slate-500">Status</th>
-                  <th className="px-2 py-3 text-left text-xs font-medium uppercase text-slate-500">Performance</th>
+                  <th className="px-2 py-3 text-left text-xs font-medium uppercase text-slate-500">budget</th>
                 </tr>
               </thead>
               <tbody>
@@ -119,7 +119,7 @@ const Overview = () => {
                       </span>
                     </td>
                     <td className="whitespace-nowrap px-2 py-3 text-sm text-slate-600">
-                      {activity.performance}
+                      {activity.budget}
                     </td>
                   </tr>
                 ))}
