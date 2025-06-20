@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
-  Clock, DollarSign, CheckCircle, XCircle,
-  AlertCircle, Tag, Calendar, List
+  Clock, CheckCircle, XCircle,
+  AlertCircle, Calendar, List,
+  IndianRupee
 } from 'lucide-react';
 
 import Card from '../../../components/ui/Card';
@@ -172,13 +173,10 @@ const InfluencerAds = () => {
       </div>
 
       <Card className="flex flex-wrap items-center gap-4 p-4 mb-6">
-        <select className="rounded-lg border border-slate-300 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-          <option>All Categories</option>
-          <option>Food & Beverage</option>
-          <option>Fashion & Beauty</option>
-          <option>Health & Fitness</option>
-          <option>Technology</option>
-        </select>
+        <div className="flex items-center gap-2">
+          <Clock size={16} className="text-slate-500" />
+          <span className="text-sm text-slate-600">Sort by:</span>
+        </div>
         <select className="rounded-lg border border-slate-300 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
           <option>All Budgets</option>
           <option>$0 - $500</option>
@@ -186,10 +184,10 @@ const InfluencerAds = () => {
           <option>$1001+</option>
         </select>
         <select className="rounded-lg border border-slate-300 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-          <option>All Durations</option>
-          <option>1 Week</option>
-          <option>2 Weeks</option>
-          <option>1 Month</option>
+          <option>Status</option>
+          <option>Available</option>
+          <option>Requested</option>
+          <option>Approved</option>
         </select>
       </Card>
 
@@ -228,34 +226,33 @@ const InfluencerAds = () => {
                       </h3>
                     </div>
                   </div>
-
                   <div className="p-4 space-y-3">
                     <p className="text-sm text-slate-700 line-clamp-3">{ad.campaignDescription}</p>
 
-                    <div className="flex flex-wrap gap-3 text-xs text-slate-600">
+                    <div className="flex flex-wrap gap-3 text-sm text-slate-900">
                       <span className="flex items-center gap-1">
-                        <Tag size={14} /> Platforms: {ad.platforms.join(', ')}
+                      <strong>Platforms:</strong> {ad.platforms.join(', ')}
                       </span>
                       <span className="flex items-center gap-1">
-                        <List size={14} /> Tasks: {ad.taskCount}
+                       <strong>Post/Stories:</strong>{ad.taskCount}
                       </span>
                       <span className="flex items-center gap-1 capitalize">
                         <strong>Type:</strong> {ad.barterOrPaid}
                       </span>
                       {ad.barterOrPaid === 'paid' && (
                         <span className="flex items-center gap-1 text-green-600">
-                          <DollarSign size={14} /> ${ad.budget?.toLocaleString()}
+                          <IndianRupee size={14} /> ${ad.budget?.toLocaleString()}
                         </span>
                       )}
                       <span className="flex items-center gap-1">
                         <Calendar size={14} />
-                        {formatDate(ad.startDate)} - {formatDate(ad.endDate)}
+                        <strong>Due: </strong>{formatDate(ad.endDate)}
                       </span>
                     </div>
-
+      
                     {ad.requirements && (
                       <div>
-                        <h4 className="mb-1 text-sm font-medium text-slate-900">Requirements:</h4>
+                        <h3 className="mb-1 text-lg font-medium text-slate-900">Requirements:</h3>
                         <p className="text-sm text-slate-600 whitespace-pre-line">{ad.requirements}</p>
                       </div>
                     )}
