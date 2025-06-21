@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   Clock, CheckCircle, XCircle,
-  AlertCircle, Calendar, List,
+  AlertCircle, Calendar,
   IndianRupee
 } from 'lucide-react';
 
@@ -59,15 +59,17 @@ const InfluencerAds = () => {
   const [message, setMessage] = useState('');
   const [actionType, setActionType] = useState<'apply' | 'reject' | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedBudget, setSelectedBudget] = useState<string>('All Budgets');
+  const [selectedStatus, setSelectedStatus] = useState<string>('Status');
   const userId = localStorage.getItem('userId') ?? '';
 
   // Function to fetch ads and applications and merge status
   const loadAdsAndApplications = async () => {
     try {
         const adsData = await availableAdsService.fetchAvailableAds();
-        console.log('adsData:', adsData);
+        // console.log('adsData:', adsData);
         const appsData = await applicationsService.fetchApplications();
-        console.log('appsData:', appsData);
+        // console.log('appsData:', appsData);
         if (adsData.success && appsData.success) {
           // Map applications by adId for quick lookup
           const appMap = new Map();
@@ -163,6 +165,32 @@ const InfluencerAds = () => {
     });
   };
 
+  // Filtering logic based on selectedBudget and selectedStatus
+  const filteredAds = availableAds.filter((ad) => {
+    let budgetMatch = true;
+    let statusMatch = true;
+
+    // Budget filter
+    if (selectedBudget === '₹0 - ₹500') {
+      budgetMatch = ad.budget !== undefined && ad.budget >= 0 && ad.budget <= 500;
+    } else if (selectedBudget === '₹501 - ₹2000') {
+      budgetMatch = ad.budget !== undefined && ad.budget >= 501 && ad.budget <= 2000;
+    } else if (selectedBudget === '₹2001+') {
+      budgetMatch = ad.budget !== undefined && ad.budget >= 2001;
+    }
+
+    // Status filter
+    if (selectedStatus === 'Available') {
+      statusMatch = ad.applicationStatus === 'none';
+    } else if (selectedStatus === 'Requested') {
+      statusMatch = ad.applicationStatus === 'pending';
+    } else if (selectedStatus === 'Approved') {
+      statusMatch = ad.applicationStatus === 'accepted';
+    }
+
+    return budgetMatch && statusMatch;
+  });
+
   return (
     <div className="space-y-6">
       <div>
@@ -177,13 +205,21 @@ const InfluencerAds = () => {
           <Clock size={16} className="text-slate-500" />
           <span className="text-sm text-slate-600">Sort by:</span>
         </div>
-        <select className="rounded-lg border border-slate-300 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <select
+          className="rounded-lg border border-slate-300 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={selectedBudget}
+          onChange={(e) => setSelectedBudget(e.target.value)}
+        >
           <option>All Budgets</option>
-          <option>$0 - $500</option>
-          <option>$501 - $1000</option>
-          <option>$1001+</option>
+          <option>₹0 - ₹500</option>
+          <option>₹501 - ₹2000</option>
+          <option>₹2001+</option>
         </select>
-        <select className="rounded-lg border border-slate-300 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <select
+          className="rounded-lg border border-slate-300 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={selectedStatus}
+          onChange={(e) => setSelectedStatus(e.target.value)}
+        >
           <option>Status</option>
           <option>Available</option>
           <option>Requested</option>
@@ -191,13 +227,13 @@ const InfluencerAds = () => {
         </select>
       </Card>
 
-      {availableAds.length === 0 ? (
+      {filteredAds.length === 0 ? (
         <div className="text-center text-slate-600 text-lg py-10">
           No available ads in your location right now.
         </div>
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {availableAds.map((ad, index) => {
+          {filteredAds.map((ad, index) => {
             const status = ad.applicationStatus;
             return (
               <motion.div
@@ -241,7 +277,7 @@ const InfluencerAds = () => {
                       </span>
                       {ad.barterOrPaid === 'paid' && (
                         <span className="flex items-center gap-1 text-green-600">
-                          <IndianRupee size={14} /> ${ad.budget?.toLocaleString()}
+                          <IndianRupee size={14}/>{ad.budget?.toLocaleString()}
                         </span>
                       )}
                       <span className="flex items-center gap-1">
