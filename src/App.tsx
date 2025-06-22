@@ -1,4 +1,5 @@
-import { Routes, Route, Navigate  } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 //layouts
 import MainLayout from './components/layout/MainLayout';
@@ -53,6 +54,17 @@ import ProtectedRoute from './utils/ProtectedRoute';
 
 function AppContent() {
   const { loading, user } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loading && user && window.location.pathname === '/') {
+      if (user.type === 'influencer') {
+        navigate('/dashboard/influencer', { replace: true });
+      } else if (user.type === 'business') {
+        navigate('/dashboard/business', { replace: true });
+      }
+    }
+  }, [loading, user, navigate]);
 
   if (loading) {
     return (
@@ -60,16 +72,6 @@ function AppContent() {
         <div className="loader">Loading...</div>
       </div>
     );
-  }
-
-  if (user) {
-    if (window.location.pathname === '/') {
-      if (user.type === 'influencer') {
-        return <Navigate to="/dashboard/influencer" replace />;
-      } else if (user.type === 'business') {
-        return <Navigate to="/dashboard/business" replace />;
-      }
-    }
   }
 
   return (
