@@ -1,9 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { Instagram, Twitter, Linkedin, Facebook } from 'lucide-react';
 import Container from '../ui/Container';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  
+  const location = useLocation();
+
   const footerLinks = [
     {
       title: 'Product',
@@ -40,9 +42,12 @@ const Footer = () => {
               Localyse
             </Link>
             <p className="mt-4 max-w-md text-sm text-slate-600">
-              Empowering local businesses with authentic, influencer-driven marketing. 
-              Bridging local influence with business impact since 2025.
+              Localyse is a platform that connects local influencers with local businesses or brands for authentic collaborations.
             </p>
+            <p className="mt-2 text-sm text-slate-500">
+              Our mission is to empower local communities by fostering genuine partnerships that drive growth and engagement. 
+              </p>
+            
           </div>
 
           {/* Footer links */}
@@ -50,16 +55,38 @@ const Footer = () => {
             <div key={section.title}>
               <h4 className="font-medium text-slate-900">{section.title}</h4>
               <ul className="mt-4 space-y-2">
-                {section.links.map((link) => (
-                  <li key={link.path}>
-                    <Link 
-                      to={link.path} 
-                      className="text-sm text-slate-600 hover:text-primary-600 transition-colors duration-200"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
+                {section.links.map((link) => {
+                  // For Pricing and How It Works links, conditionally render anchor or Link based on current path
+                  if (
+                    (link.label === 'Pricing' || link.label === 'How It Works') &&
+                    location.pathname === '/'
+                  ) {
+                    // Render anchor tag for smooth scroll on home page
+                    const anchorHref = link.label === 'Pricing' ? '#pricing' : '#how-it-works';
+                    return (
+                      <li key={link.path}>
+                        <a
+                          href={anchorHref}
+                          className="text-sm text-slate-600 hover:text-primary-600 transition-colors duration-200"
+                        >
+                          {link.label}
+                        </a>
+                      </li>
+                    );
+                  } else {
+                    // Render Link for other cases
+                    return (
+                      <li key={link.path}>
+                        <Link
+                          to={link.path}
+                          className="text-sm text-slate-600 hover:text-primary-600 transition-colors duration-200"
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    );
+                  }
+                })}
               </ul>
             </div>
           ))}
@@ -71,7 +98,42 @@ const Footer = () => {
               © {currentYear} Localyse. All rights reserved.
             </p>
             <div className="flex space-x-6">
-              {/* Social links would go here */}
+              <a
+                href="https://www.instagram.com/localyse.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="text-slate-600 hover:text-primary-600 transition-colors duration-200"
+              >
+                <Instagram size={20} />
+              </a>
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="X"
+                className="text-slate-600 hover:text-primary-600 transition-colors duration-200"
+              >
+                <Twitter size={20} />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/localyse-in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="text-slate-600 hover:text-primary-600 transition-colors duration-200"
+              >
+                <Linkedin size={20} />
+              </a>
+              <a
+                href="https://www.facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="text-slate-600 hover:text-primary-600 transition-colors duration-200"
+              >
+                <Facebook size={20} />
+              </a>
             </div>
           </div>
         </div>

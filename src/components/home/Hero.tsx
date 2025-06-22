@@ -17,7 +17,7 @@ const Hero = () => {
               Connect <span className="text-yellow-300">Influencers</span> with <span className="text-yellow-300">Local Businesses</span>
             </h1>
             <p className="text-lg md:text-xl opacity-90 mb-8 max-w-lg">
-              Amplify your local reach with authentic partnerships. Localyse connects businesses with the perfect local influencers to drive engagement and growth.
+              Amplify your local reach with authentic partnerships. Localyse connects local influencers with local brands or businesses for authentic collaborations.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a

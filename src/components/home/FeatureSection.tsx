@@ -99,7 +99,7 @@ const FeatureSection = () => {
         >
           <h2 className="mb-4 font-bold text-slate-900">Powerful Features for Both Sides</h2>
           <p className="mx-auto max-w-2xl text-lg text-slate-600">
-            Our platform bridges the gap between local businesses and influencers with tools designed for seamless collaboration and measurable results.
+            Localyse bridges the gap between local businesses and influencers with tools designed for seamless collaboration and measurable results.
           </p>
         </motion.div>
 

@@ -13,7 +13,8 @@ const AboutPage = () => {
         >
           <h1 className="mb-6 font-bold text-slate-900">About Localyse</h1>
           <p className="mb-12 text-lg text-slate-600">
-            To democratize advertising for SMBs through hyperlocal influencer collaboration and campaign automation.
+          Connecting local influencers with local businesses or brands for authentic collaborations.
+          Our mission is to empower local communities by fostering genuine partnerships that drive growth and engagement.
           </p>
         </motion.div>
         
