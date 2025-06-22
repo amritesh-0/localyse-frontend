@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Home, FileText, ClipboardList, Users, HelpCircle, User, LogOut, ChevronLeft, Menu
+  Home, FileText, ClipboardList, Users, HelpCircle, User, LogOut, ChevronLeft, Menu, Bug
 } from 'lucide-react';
 import { useAuth } from '../../../context/AuthContext'; // ✅ Update the path as needed
 import Logo from '../../../assets/Logo.png';
@@ -26,6 +26,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
     { icon: <Users size={20} />, label: 'Influencers', path: '/dashboard/business/influencers' },
     { icon: <User size={20} />, label: 'Profile', path: '/dashboard/business/profile' },
     { icon: <HelpCircle size={20} />, label: 'Help', path: '/dashboard/business/help' },
+    { icon: <Bug size={20} />, label: 'Feedback & Bugs', path: '/dashboard/influencer/feedback-bugs' },
   ];
 
   const sidebarVariants = {

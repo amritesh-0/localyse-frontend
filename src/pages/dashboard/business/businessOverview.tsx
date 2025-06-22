@@ -28,7 +28,7 @@ const Overview = () => {
   }, []);
 
   if (loading) {
-    return <div>Seat relax! Loading overview...</div>;
+    return <div>Seat relax! Creating overview for you...</div>;
   }
 
   if (error) {

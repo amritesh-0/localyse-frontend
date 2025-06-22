@@ -10,6 +10,7 @@ import {
   FileText,
   ClipboardList,
   User,
+  Bug,
 } from 'lucide-react';
 import { useAuth } from '../../../context/AuthContext'; 
 import Logo from '../../../assets/Logo.png';
@@ -32,6 +33,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
     { icon: <FileText size={20} />, label: 'Requests', path: '/dashboard/influencer/requests' },
     { icon: <User size={20} />, label: 'Profile', path: '/dashboard/influencer/profile' },
     { icon: <HelpCircle size={20} />, label: 'Help', path: '/dashboard/influencer/help' },
+    { icon: <Bug size={20} />, label: 'Feedback & Bugs', path: '/dashboard/influencer/feedback-bugs' },
   ];
 
   const sidebarVariants = {

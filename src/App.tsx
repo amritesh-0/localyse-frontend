@@ -36,6 +36,7 @@ import InfluencerHelp from './pages/dashboard/shared/HelpAndSupport';
 
 // Shared Dashboard
 import EmailSupport from './pages/dashboard/shared/EmailSupport';
+import FeedbackBugs from './pages/dashboard/shared/FeedbackBugs';
 
 // Business Dashboard
 import BusinessDashboardLayout from './components/layout/BusinessDashboardLayout';
@@ -107,6 +108,7 @@ function AppContent() {
             <Route path="profile" element={<InfluencerProfile />} />
             <Route path="help" element={<InfluencerHelp />} />
             <Route path="support/email" element={<EmailSupport />} />
+            <Route path="feedback-bugs" element={<FeedbackBugs />} />
           </Route>
         </Route>
 
@@ -121,6 +123,7 @@ function AppContent() {
             <Route path="profile" element={<BusinessProfile />} />
             <Route path="help" element={<BusinessHelp />} />
             <Route path="support/email" element={<EmailSupport />} />
+            <Route path="feedback-bugs" element={<FeedbackBugs />} />
             <Route path="track-campaign/:adId" element={<TrackCampaignBusiness />} />
           </Route>
         </Route>
