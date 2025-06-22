@@ -36,6 +36,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
+  // New state and effect for cycling loading messages
+  const loadingMessages = [
+    "Loading your personalized dashboard...",
+    "Verifying your credentials...",
+    "Fetching your data...",
+    "Almost ready to go...",
+  ];
+  const [currentLoadingMessageIndex, setCurrentLoadingMessageIndex] = useState(0);
+
+  useEffect(() => {
+    if (loading) {
+      const interval = setInterval(() => {
+        setCurrentLoadingMessageIndex((prevIndex) => (prevIndex + 1) % loadingMessages.length);
+      }, 1500);
+      return () => clearInterval(interval);
+    }
+  }, [loading]);
+
   useEffect(() => {
     const verifyToken = async () => {
       const token = getToken();
@@ -88,8 +106,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   return (
     <AuthContext.Provider value={{ user, loading, error, login, logout }}>
       {loading ? (
-        <div className="flex justify-center items-center h-screen">
-          <div className="loader">Loading...</div>
+        <div className="flex flex-col justify-center items-center h-screen space-y-4">
+          <div className="loader"></div>
+          <p className="text-lg text-slate-600 font-medium">{loadingMessages[currentLoadingMessageIndex]}</p>
         </div>
       ) : (
         children

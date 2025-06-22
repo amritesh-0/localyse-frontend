@@ -85,6 +85,23 @@ const AvailableInfluencers = () => {
   // New state to track accepted campaign ad IDs per influencer
   const [acceptedAdIds, setAcceptedAdIds] = useState<Record<string, string>>({});
 
+  // New state and effect for cycling loading messages
+  const loadingMessages = [
+    "Finding the best matches influencer for you...",
+    "Gathering influencer insights...",
+    "Optimizing your influencer list...",
+  ];
+  const [currentLoadingMessageIndex, setCurrentLoadingMessageIndex] = useState(0);
+
+  useEffect(() => {
+    if (isLoading) {
+      const interval = setInterval(() => {
+        setCurrentLoadingMessageIndex((prevIndex) => (prevIndex + 1) % loadingMessages.length);
+      }, 1500);
+      return () => clearInterval(interval);
+    }
+  }, [isLoading]);
+
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -378,8 +395,9 @@ const handleInputChange = (
 
       {/* Influencers Grid */}
       {isLoading ? (
-        <div className="flex items-center justify-center min-h-[400px]">
+        <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+          <p className="text-slate-600 text-lg font-medium">{loadingMessages[currentLoadingMessageIndex]}</p>
         </div>
       ) : (
         <motion.div
