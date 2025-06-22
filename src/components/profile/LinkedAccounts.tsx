@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Card from '../../components/ui/Card';
-import { Instagram, Facebook, Twitter, Youtube, CheckCircle } from 'lucide-react';
+import Button from '../ui/Button';
+import { Instagram, Facebook, Twitter, Youtube, CheckCircle, ExternalLink } from 'lucide-react';
 import { fetchLinkedSocials } from '../../services/authServices/linkSocialsApi';
 import LoadingSpinner from '../ui/LoadingSpinner';
+import { getToken } from '../../utils/auth';
+import { useNavigate } from 'react-router-dom';
 
 interface LinkedSocials {
   instagram_linked?: boolean;
@@ -15,6 +18,7 @@ const LinkedAccounts = () => {
   const [linkedSocials, setLinkedSocials] = useState<LinkedSocials | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getLinkedSocials = async () => {
@@ -31,6 +35,13 @@ const LinkedAccounts = () => {
     };
     getLinkedSocials();
   }, []);
+
+  const handleInstagramConnect = () => {
+    const backendUrl = import.meta.env.VITE_API_BASE_URL || '';
+    const token = getToken();
+    const oauthUrl = `${backendUrl}/api/instagram/login?state=${encodeURIComponent(token)}`;
+    window.location.href = oauthUrl;
+  };
 
   if (loading) {
     return (
@@ -64,7 +75,14 @@ const LinkedAccounts = () => {
                 <span>Linked</span>
               </span>
             ) : (
-              <span className="italic text-slate-400">Not Linked</span>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={handleInstagramConnect}
+                icon={<ExternalLink size={14} />}
+              >
+                Link
+              </Button>
             )}
           </div>
         </div>
@@ -80,7 +98,6 @@ const LinkedAccounts = () => {
                 <span>Linked</span>
               </span>
             ) : (
-              // <span className="italic text-slate-400">Not Linked</span>
               <span className="italic text-slate-400">Coming Soon</span>
             )}
           </div>
@@ -97,8 +114,7 @@ const LinkedAccounts = () => {
                 <span>Linked</span>
               </span>
             ) : (
-                <span className="italic text-slate-400">Coming Soon</span>
-              // <span className="italic text-slate-400">Not Linked</span>
+              <span className="italic text-slate-400">Coming Soon</span>
             )}
           </div>
         </div>
@@ -114,8 +130,7 @@ const LinkedAccounts = () => {
                 <span>Linked</span>
               </span>
             ) : (
-                <span className="italic text-slate-400">Coming Soon</span>
-              // <span className="italic text-slate-400">Not Linked</span>
+              <span className="italic text-slate-400">Coming Soon</span>
             )}
           </div>
         </div>

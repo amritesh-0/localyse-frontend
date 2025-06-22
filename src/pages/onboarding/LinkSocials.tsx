@@ -120,7 +120,7 @@ const LinkSocials = () => {
   }, []);
   const handleConnect = async (platformId: string) => {
     if (platformId === 'instagram') {
-      const backendUrl = import.meta.env.VITE_API_BASE_URL || 'https://public-otters-enjoy.loca.lt';
+      const backendUrl = import.meta.env.VITE_API_BASE_URL || '';
 
       const token = getToken();
       console.log('Instagram OAuth login token:', token);
