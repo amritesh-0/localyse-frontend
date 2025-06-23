@@ -26,7 +26,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
     { icon: <Users size={20} />, label: 'Influencers', path: '/dashboard/business/influencers' },
     { icon: <User size={20} />, label: 'Profile', path: '/dashboard/business/profile' },
     { icon: <HelpCircle size={20} />, label: 'Help', path: '/dashboard/business/help' },
-    { icon: <Bug size={20} />, label: 'Feedback & Bugs', path: '/dashboard/influencer/feedback-bugs' },
+    { icon: <Bug size={20} />, label: 'Feedback & Bugs', path: '/dashboard/business/feedback-bugs' },
   ];
 
   const sidebarVariants = {

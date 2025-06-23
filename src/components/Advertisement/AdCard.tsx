@@ -196,7 +196,7 @@ const AdCard: React.FC<AdCardProps> = ({ ad, onDelete }) => {
                   <IndianRupee size={14} className="text-green-500" />
                   <span className="text-xs font-medium text-green-700">Budget</span>
                 </div>
-                <div className="text-lg font-bold text-green-900">${ad.budget.toLocaleString()}</div>
+                <div className="text-lg font-bold text-green-900">₹{ad.budget.toLocaleString()}</div>
               </div>
             ) : (
               <div className="bg-amber-50 rounded-xl p-3 border border-amber-100">
