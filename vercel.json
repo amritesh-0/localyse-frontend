@@ -17,12 +17,10 @@
     {
       "source": "/robots.txt",
       "destination": "https://localyse-backend-production.up.railway.app/robots.txt"
-    }
-  ],
-  "routes": [
+    },
     {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
