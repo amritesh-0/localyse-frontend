@@ -2,11 +2,11 @@
   "rewrites": [
     {
       "source": "/sitemap.xml",
-      "destination": "localyse-backend-production.up.railway.app/sitemap.xml"
+      "destination": "https://localyse-backend-production.up.railway.app/sitemap.xml"
     },
     {
       "source": "/robots.txt",
-      "destination": "localyse-backend-production.up.railway.app/robots.txt"
+      "destination": "https://localyse-backend-production.up.railway.app/robots.txt"
     }
   ]
 }
