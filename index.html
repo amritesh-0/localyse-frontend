@@ -1,18 +1,97 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Charset First -->
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#4f46e5" />
+
+    <!-- Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Title and Description -->
     <title>Localyse – Bridging Local Influence with Business Impact</title>
-    <meta name="description" content="Localyse connects local businesses with influencers to amplify reach and drive growth through authentic partnerships." />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Localyse connects local businesses with influencers to amplify reach and drive growth through authentic partnerships. Our AI-powered matching system connects businesses with the perfect local influencers based on geography, audience demographics, and brand alignment." />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://localyse.in/" />
+
+    <!-- Theme Colors -->
+    <meta name="theme-color" content="#4f46e5" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Preconnect & Preload Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://localyse.in/" />
+    <meta property="og:title" content="Localyse – Bridging Local Influence with Business Impact" />
+    <meta property="og:description" content="Localyse connects local businesses with influencers to amplify reach and drive growth through authentic partnerships. Our AI-powered matching system connects businesses with the perfect local influencers based on geography, audience demographics, and brand alignment." />
+    <meta property="og:image" content="https://localyse.in/assets/Logo.png" />
+    <meta property="og:image:alt" content="Localyse Logo" />
+    <meta property="og:site_name" content="Localyse" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://localyse.in/" />
+    <meta name="twitter:title" content="Localyse – Bridging Local Influence with Business Impact" />
+    <meta name="twitter:description" content="Localyse connects local businesses with influencers to amplify reach and drive growth through authentic partnerships. Our AI-powered matching system connects businesses with the perfect local influencers based on geography, audience demographics, and brand alignment." />
+    <meta name="twitter:image" content="https://localyse.in/assets/Logo.png" />
+    <meta name="twitter:image:alt" content="Localyse Logo" />
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-W9SGX7F9');
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Localyse",
+      "url": "https://localyse.in/",
+      "logo": "https://localyse.in/assets/Logo.png",
+      "sameAs": [
+        "https://www.instagram.com/localys.in",
+        "https://www.linkedin.com/company/localyse-in",
+        "https://twitter.com/localyse-in"
+      ],
+      "description": "Localyse connects businesses with local influencers through AI-driven matchmaking for effective collaborations."
+    }
+    </script>
   </head>
+
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W9SGX7F9"
+              height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

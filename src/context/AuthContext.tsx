@@ -38,7 +38,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   // New state and effect for cycling loading messages
   const loadingMessages = [
-    "Loading your personalized dashboard...",
+    "We're getting localyse ready for you...",
     "Verifying your credentials...",
     "Fetching your data...",
     "Almost ready to go...",

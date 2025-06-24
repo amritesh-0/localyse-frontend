@@ -1,18 +1,12 @@
 {
-  "version": 2,
-  "builds": [
+  "rewrites": [
     {
-      "src": "package.json",
-      "use": "@vercel/static-build"
-    }
-  ],
-  "routes": [
-    {
-      "handle": "filesystem"
+      "source": "/sitemap.xml",
+      "destination": "localyse-backend-production.up.railway.app/sitemap.xml"
     },
     {
-      "src": "/(.*)",
-      "dest": "/"
+      "source": "/robots.txt",
+      "destination": "localyse-backend-production.up.railway.app/robots.txt"
     }
   ]
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   CheckCircle, 
@@ -32,6 +32,7 @@ const PLATFORM_OPTIONS = [
 
 const TrackCampaignInfluencer = () => {
   const { adId } = useParams();
+  const navigate = useNavigate();
   const [campaignName, setCampaignName] = useState('');
   const [submissions, setSubmissions] = useState([]);
   const [formState, setFormState] = useState({
@@ -273,12 +274,22 @@ const TrackCampaignInfluencer = () => {
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-8">
       {/* Header */}
-      <div className="text-center">
-        <h1 className="text-3xl font-bold text-slate-900 mb-2">Campaign Submissions</h1>
-        <p className="text-slate-600">Submit your content and track approval status</p>
-        <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-primary-50 text-primary-700 rounded-full">
-          <Calendar className="w-4 h-4" />
-          <span className="font-medium">{campaignName}</span>
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
+        <div className="text-left">
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">Campaign Submissions</h1>
+          <p className="text-slate-600">Submit your content and track approval status</p>
+          <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-primary-50 text-primary-700 rounded-full">
+            <Calendar className="w-4 h-4" />
+            <span className="font-medium">{campaignName}</span>
+          </div>
+        </div>
+        <div>
+          <Button
+            variant="primary"
+            onClick={() => navigate(`/dashboard/influencer/track-payment/${adId}`)}
+          >
+            Track Payment
+          </Button>
         </div>
       </div>
 

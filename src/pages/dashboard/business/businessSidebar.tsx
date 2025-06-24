@@ -4,8 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Home, FileText, ClipboardList, Users, HelpCircle, User, LogOut, ChevronLeft, Menu, Bug
 } from 'lucide-react';
-import { useAuth } from '../../../context/AuthContext'; // ✅ Update the path as needed
-import Logo from '../../../assets/Logo.png';
+import { useAuth } from '../../../context/AuthContext'; 
+import Logo from '../../../../public/assets/Logo.png'; 
 
 interface SidebarProps {
   children?: React.ReactNode;
