@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Home, FileText, ClipboardList, Users, HelpCircle, User, LogOut, ChevronLeft, Menu, Bug
@@ -9,15 +8,20 @@ import Logo from '../../../../public/assets/Logo.png';
 
 interface SidebarProps {
   children?: React.ReactNode;
+  isOpen: boolean;
+  isMobileOpen: boolean;
+  toggleSidebar: () => void;
+  toggleMobileSidebar: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(true);
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const { logout } = useAuth(); // ✅ Access logout function
-
-  const toggleSidebar = () => setIsOpen(!isOpen);
-  const toggleMobileSidebar = () => setIsMobileOpen(!isMobileOpen);
+const Sidebar: React.FC<SidebarProps> = ({
+  children,
+  isOpen,
+  isMobileOpen,
+  toggleSidebar,
+  toggleMobileSidebar,
+}) => {
+  const { logout } = useAuth();
 
   const sidebarItems = [
     { icon: <Home size={20} />, label: 'Overview', path: '/dashboard/business/overview' },
@@ -66,7 +70,6 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
         className="fixed left-1 top-4 z-30 rounded-lg bg-white p-2 lg:hidden"
       >
        <Menu size={24} />
-
       </button>
 
       {/* Mobile Sidebar */}
@@ -93,7 +96,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
               <NavLink
                 key={item.path}
                 to={item.path}
-                onClick={() => setIsMobileOpen(false)}
+                onClick={() => toggleMobileSidebar()}
                 className={({ isActive }) =>
                   `flex items-center space-x-3 rounded-lg px-3 py-2 ${
                     isActive ? 'bg-primary-50 text-primary-700' : 'text-slate-700 hover:bg-slate-100'
@@ -127,13 +130,11 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
       >
         <div className="flex h-full flex-col">
           <div className="flex h-16 items-center justify-between px-4 border-b">
-            {/* <Link to="/" className="flex items-center"> */}
               {isOpen ? (
                 <img src={Logo} alt="Logo" className="h-12 w-auto" />
               ) : (
                 <span className="text-xl font-semibold text-primary-700">L</span>
               )}
-            {/* </Link> */}
             <button
               onClick={toggleSidebar}
               className="rounded-lg p-2 text-slate-500 hover:bg-slate-100"
@@ -170,11 +171,6 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
           </div>
         </div>
       </motion.div>
-
-      {/* Main Content */}
-      <div className="flex flex-1 flex-col overflow-hidden">
-        <main className="flex-1 overflow-y-auto p-4 lg:p-6">{children}</main>
-      </div>
     </div>
   );
 };
