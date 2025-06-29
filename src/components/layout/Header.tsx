@@ -5,7 +5,7 @@ import { Menu, X } from 'lucide-react';
 import Container from '../ui/Container';
 import Button from '../ui/Button';
 import Navbar from './Navbar';
-import Logo from '../../../public/assets/Logo.png';
+import Logo from '../../assets/Logo.png';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
