@@ -10,9 +10,23 @@
     }
   ],
   "routes": [
-    { "src": "/sitemap.xml", "dest": "https://localyse-backend-production.up.railway.app/sitemap.xml" },
-    { "src": "/robots.txt", "dest": "https://localyse-backend-production.up.railway.app/robots.txt" },
-    { "src": "/(.*\\..*)", "dest": "/$1" },
-    { "src": "/(.*)", "dest": "/index.html" }
+    {
+      "src": "/sitemap.xml",
+      "headers": { "cache-control": "s-maxage=3600" },
+      "dest": "https://localyse-backend-production.up.railway.app/sitemap.xml"
+    },
+    {
+      "src": "/robots.txt",
+      "headers": { "cache-control": "s-maxage=3600" },
+      "dest": "https://localyse-backend-production.up.railway.app/robots.txt"
+    },
+    {
+      "src": "/(.*\\..*)",
+      "dest": "/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
   ]
 }
