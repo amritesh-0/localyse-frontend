@@ -82,7 +82,7 @@ function AppContent() {
   return (
     <>
       <ScrollToTop />
-      <Suspense fallback={<div className="flex justify-center items-center h-screen"><div className="loader">...</div></div>}>
+      <Suspense fallback={<div className="flex justify-center items-center h-screen"><div className="loader"></div></div>}>
         <Routes>
           <Route path="/" element={<MainLayout />}>
             <Route index element={<Home />} />
