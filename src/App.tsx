@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { useEffect, Suspense, lazy } from 'react';
 
-//layouts
+//layouts components
 const MainLayout = lazy(() => import('./components/layout/MainLayout'));
 const AuthLayout = lazy(() => import('./components/layout/AuthLayout'));
 const BusinessDashboardLayout = lazy(() => import('./components/layout/BusinessDashboardLayout'));
