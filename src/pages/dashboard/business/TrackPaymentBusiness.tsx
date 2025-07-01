@@ -65,6 +65,7 @@ const TrackPaymentBusiness = () => {
   const [toastType, setToastType] = useState<'success' | 'error'>('success');
   const [dragActive, setDragActive] = useState(false);
   const [influencerId, setInfluencerId] = useState<string | null>(null);
+  const [upiNotFound, setUpiNotFound] = useState(false);
 
   const [formData, setFormData] = useState({
     amount: '',
@@ -112,9 +113,15 @@ const TrackPaymentBusiness = () => {
         agreedAmount: prev?.agreedAmount || 0,
         currency: 'INR',
       }));
-    } catch (err) {
-      console.error('Error fetching UPI details:', err);
+      setUpiNotFound(false);
+    } catch (err: any) {
+      if (err?.response?.status === 404) {
+        setUpiNotFound(true);
+      } else {
+        setUpiNotFound(false);
+      }
       setConnectedInfluencer(null);
+      console.error('Error fetching UPI details:', err);
     }
   };
 
@@ -293,6 +300,21 @@ const TrackPaymentBusiness = () => {
       maximumFractionDigits: 2,
     }).format(amount);
   };
+
+  if (upiNotFound) {
+    return (
+      <div className="flex items-center justify-center min-h-96">
+        <Card className="p-8 max-w-md mx-auto text-center">
+          <AlertTriangle size={48} className="mx-auto mb-4 text-yellow-500" />
+          <h2 className="text-xl font-bold text-slate-900 mb-2">UPI Details Not Found</h2>
+          <p className="text-slate-600 mb-4">
+            This influencer has not added their UPI details yet.<br />
+            Kindly wait till they set up their UPI to enable payments.
+          </p>
+        </Card>
+      </div>
+    );
+  }
 
   if (!connectedInfluencer) {
     return (
