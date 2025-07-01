@@ -9,18 +9,9 @@
       }
     }
   ],
-  "rewrites": [
-    {
-      "source": "/sitemap.xml",
-      "destination": "https://localyse-backend-production.up.railway.app/sitemap.xml"
-    },
-    {
-      "source": "/robots.txt",
-      "destination": "https://localyse-backend-production.up.railway.app/robots.txt"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+  "routes": [
+    { "src": "/sitemap.xml", "dest": "https://localyse-backend-production.up.railway.app/sitemap.xml" },
+    { "src": "/robots.txt", "dest": "https://localyse-backend-production.up.railway.app/robots.txt" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
