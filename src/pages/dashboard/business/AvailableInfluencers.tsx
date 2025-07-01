@@ -348,11 +348,19 @@ const handleInputChange = (
     const location = `${influencer.personalInfo?.city || ''} ${influencer.personalInfo?.state || ''}`.trim();
     const matchesSearch = name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       location.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesNiche = selectedNiche === 'all' || influencer.personalInfo?.niche === selectedNiche;
+    const matchesNiche = selectedNiche === 'all' || 
+      (influencer.personalInfo?.niche && 
+       influencer.personalInfo.niche.trim().toLowerCase() === selectedNiche.toLowerCase());
     return matchesSearch && matchesNiche;
   });
 
-  const uniqueNiches = ['all', ...new Set(influencers.map(inf => inf.personalInfo?.niche))];
+  // Fix: Properly filter out undefined/null niches and ensure uniqueness
+  const uniqueNiches = ['all', ...new Set(
+    influencers
+      .map(inf => inf.personalInfo?.niche)
+      .filter((niche): niche is string => Boolean(niche && niche.trim() !== '')) // Filter out undefined, null, and empty strings
+      .map(niche => niche.trim()) // Trim whitespace for consistency
+  )];
 
   return (
     <div className="space-y-6 p-6">

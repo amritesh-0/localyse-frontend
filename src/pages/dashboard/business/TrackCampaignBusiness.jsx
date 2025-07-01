@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   CheckCircle, 
@@ -18,6 +18,7 @@ import { getTrackingDetailsForBusiness, updateBusinessApprovalStatus } from '../
 
 const TrackCampaignBusiness = () => {
   const { adId } = useParams();
+  const navigate = useNavigate();
   const [showRejectionModal, setShowRejectionModal] = useState(false);
   const [showImageModal, setShowImageModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
@@ -334,6 +335,16 @@ const TrackCampaignBusiness = () => {
             <span className="font-medium">{campaignName}</span>
           </div>
         )}
+        {/* Payment Button */}
+        <div className="mt-4">
+          <Button
+            variant="primary"
+            size="md"
+            onClick={() => navigate(`/dashboard/business/track-payment/${adId}`)}
+          >
+            Track Payment
+          </Button>
+        </div>
       </div>
 
       {/* Campaign Status */}
