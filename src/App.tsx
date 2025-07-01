@@ -32,7 +32,7 @@ import InfluencerOverview from './pages/dashboard/influencer/influencerOverview'
 import InfluencerAds from './pages/dashboard/influencer/Ads';
 import InfluencerRequests from './pages/dashboard/influencer/Requests';
 import TrackCampaignInfluencer from './pages/dashboard/influencer/TrackCampaignInfluencer';
-// import TrackPaymentInfluencer from '../../TrackPaymentInfluencer';
+import TrackPaymentInfluencer from './pages/dashboard/influencer/TrackPaymentInfluencer';
 import InfluencerProfile from './pages/dashboard/influencer/influencerProfile';
 import InfluencerHelp from './pages/dashboard/shared/HelpAndSupport';
 
@@ -49,7 +49,7 @@ import BusinessInfluencers from './pages/dashboard/business/AvailableInfluencers
 import BusinessProfile from './pages/dashboard/business/businessProfile';
 import BusinessHelp from './pages/dashboard/shared/HelpAndSupport';
 import TrackCampaignBusiness from './pages/dashboard/business/TrackCampaignBusiness';
-// import TrackPaymentBusiness from '../../TrackPaymentBusiness';
+import TrackPaymentBusiness from './pages/dashboard/business/TrackPaymentBusiness';
 
 import { AuthProvider, useAuth } from './context/AuthContext';
 import ProtectedRoute from './utils/ProtectedRoute';
@@ -109,7 +109,7 @@ function AppContent() {
             <Route path="ads" element={<InfluencerAds />} />
             <Route path="requests" element={<InfluencerRequests />} />
             <Route path="track-campaign/:adId" element={<TrackCampaignInfluencer />} />
-            {/* <Route path="track-payment/:adId" element={<TrackPaymentInfluencer />} /> */}
+            <Route path="track-payment/:adId" element={<TrackPaymentInfluencer />} />
             <Route path="profile" element={<InfluencerProfile />} />
             <Route path="help" element={<InfluencerHelp />} />
             <Route path="support/email" element={<EmailSupport />} />
@@ -130,7 +130,7 @@ function AppContent() {
             <Route path="support/email" element={<EmailSupport />} />
             <Route path="feedback-bugs" element={<FeedbackBugs />} />
             <Route path="track-campaign/:adId" element={<TrackCampaignBusiness />} />
-            {/* <Route path="track-payment/:adId" element={<TrackPaymentBusiness />} /> */}
+            <Route path="track-payment/:adId" element={<TrackPaymentBusiness />} />
           </Route>
         </Route>
       </Routes>

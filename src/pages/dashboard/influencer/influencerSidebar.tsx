@@ -12,7 +12,7 @@ import {
   Bug,
 } from 'lucide-react';
 import { useAuth } from '../../../context/AuthContext'; 
-import Logo from '../../../../public/assets/Logo.png';
+import Logo from '../../../assets/Logo.png';
 
 interface SidebarProps {
   children?: React.ReactNode;

@@ -267,6 +267,7 @@ const TrackCampaignInfluencer = () => {
     return (
       <div className="flex items-center justify-center min-h-96">
         <Loader />
+        <p> Tracking your campaign....</p>
       </div>
     );
   }
