@@ -321,7 +321,7 @@ const TrackPaymentBusiness = () => {
       <div className="flex items-center justify-center min-h-96">
         <div className="text-center">
           <Clock size={48} className="mx-auto mb-4 text-slate-400 animate-spin" />
-          <p className="text-slate-600">Loading influencer details...</p>
+          <p className="text-slate-600">Payment details on the way...</p>
         </div>
       </div>
     );
