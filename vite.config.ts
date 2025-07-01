@@ -1,9 +1,10 @@
 // vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), visualizer({ open: true })],
   base: './', // Ensures assets are correctly resolved in production
   build: {
     outDir: 'dist', // Vercel default output directory
@@ -20,3 +21,6 @@ export default defineConfig({
     }
   }
 });
+
+// To analyze your bundle, run: npm run build
+// After build, a stats.html file will open showing bundle composition
