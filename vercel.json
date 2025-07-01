@@ -21,6 +21,14 @@
       "dest": "https://localyse-backend-production.up.railway.app/robots.txt"
     },
     {
+      "src": "/dashboard/(.*\\..*)",
+      "dest": "/dashboard/$1"
+    },
+    {
+      "src": "/dashboard/(.*)",
+      "dest": "/dashboard/index.html"
+    },
+    {
       "src": "/(.*\\..*)",
       "dest": "/$1"
     },
