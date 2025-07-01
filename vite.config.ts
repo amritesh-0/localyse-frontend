@@ -5,7 +5,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig({
   plugins: [react(), visualizer({ open: true })],
-  base: './', // Ensures assets are correctly resolved in production
+  base: '/dashboard/', // Ensures assets are correctly resolved when deployed at /dashboard
   build: {
     outDir: 'dist', // Vercel default output directory
     sourcemap: false, // Set to true if you want source maps for debugging
