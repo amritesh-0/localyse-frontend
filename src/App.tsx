@@ -7,6 +7,7 @@ const AuthLayout = lazy(() => import('./components/layout/AuthLayout'));
 const BusinessDashboardLayout = lazy(() => import('./components/layout/BusinessDashboardLayout'));
 const InfluencerDashboardLayout = lazy(() => import('./components/layout/InfluencerDashboardLayout'));
 import ScrollToTop from './components/layout/ScrollToTop';
+import Loader from './components/ui/Loader';
 
 // Landing Pages
 const Home = lazy(() => import('./pages/landing/Home'));
@@ -82,7 +83,7 @@ function AppContent() {
   return (
     <>
       <ScrollToTop />
-      <Suspense fallback={<div className="flex justify-center items-center h-screen"><div className="loader">Hold on...</div></div>}>
+      <Suspense fallback= {<Loader />}> 
         <Routes>
           <Route path="/" element={<MainLayout />}>
             <Route index element={<Home />} />
