@@ -4,10 +4,10 @@ import { useEffect, Suspense, lazy } from 'react';
 //layouts components
 const MainLayout = lazy(() => import('./components/layout/MainLayout'));
 const AuthLayout = lazy(() => import('./components/layout/AuthLayout'));
-const BusinessDashboardLayout = lazy(() => import('./components/layout/BusinessDashboardLayout'));
-const InfluencerDashboardLayout = lazy(() => import('./components/layout/InfluencerDashboardLayout'));
 import ScrollToTop from './components/layout/ScrollToTop';
 import Loader from './components/ui/Loader';
+import BusinessDashboardLayout from './components/layout/BusinessDashboardLayout';
+import InfluencerDashboardLayout from './components/layout/InfluencerDashboardLayout';
 
 // Landing Pages
 const Home = lazy(() => import('./pages/landing/Home'));
@@ -30,28 +30,29 @@ const InfluencerOnboarding = lazy(() => import('./pages/onboarding/InfluencerOnb
 const LinkSocials = lazy(() => import('./pages/onboarding/LinkSocials'));
 
 // Influencer Dashboard
-const InfluencerOverview = lazy(() => import('./pages/dashboard/influencer/influencerOverview'));
-const InfluencerAds = lazy(() => import('./pages/dashboard/influencer/Ads'));
-const InfluencerRequests = lazy(() => import('./pages/dashboard/influencer/Requests'));
-const TrackCampaignInfluencer = lazy(() => import('./pages/dashboard/influencer/TrackCampaignInfluencer'));
-const TrackPaymentInfluencer = lazy(() => import('./pages/dashboard/influencer/TrackPaymentInfluencer'));
-const InfluencerProfile = lazy(() => import('./pages/dashboard/influencer/influencerProfile'));
-const InfluencerHelp = lazy(() => import('./pages/dashboard/shared/HelpAndSupport'));
+import InfluencerOverview from './pages/dashboard/influencer/influencerOverview';
+import InfluencerAds from './pages/dashboard/influencer/Ads';
+import InfluencerRequests from './pages/dashboard/influencer/Requests';
+import TrackCampaignInfluencer from './pages/dashboard/influencer/TrackCampaignInfluencer';
+import TrackPaymentInfluencer from './pages/dashboard/influencer/TrackPaymentInfluencer';
+import InfluencerProfile from './pages/dashboard/influencer/influencerProfile';
+import InfluencerHelp from './pages/dashboard/shared/HelpAndSupport';
 
 // Shared Dashboard
 const EmailSupport = lazy(() => import('./pages/dashboard/shared/EmailSupport'));
 const FeedbackBugs = lazy(() => import('./pages/dashboard/shared/FeedbackBugs'));
 
 // Business Dashboard
-const BusinessOverview = lazy(() => import('./pages/dashboard/business/businessOverview'));
-const BusinessPostAds = lazy(() => import('./pages/dashboard/business/PostAds'));
-const BusinessApplications = lazy(() => import('./pages/dashboard/business/Applications'));
-const BusinessInfluencers = lazy(() => import('./pages/dashboard/business/AvailableInfluencers'));
-const BusinessProfile = lazy(() => import('./pages/dashboard/business/businessProfile'));
-const BusinessHelp = lazy(() => import('./pages/dashboard/shared/HelpAndSupport'));
+import BusinessOverview from './pages/dashboard/business/businessOverview';
+import BusinessPostAds from './pages/dashboard/business/PostAds';
+import BusinessApplications from './pages/dashboard/business/Applications';
+import BusinessInfluencers from './pages/dashboard/business/AvailableInfluencers';
+import BusinessProfile from './pages/dashboard/business/businessProfile';
+import BusinessHelp from './pages/dashboard/shared/HelpAndSupport';
 // @ts-ignore
-const TrackCampaignBusiness = lazy(() => import('./pages/dashboard/business/TrackCampaignBusiness'));
-const TrackPaymentBusiness = lazy(() => import('./pages/dashboard/business/TrackPaymentBusiness'));
+import TrackCampaignBusiness from './pages/dashboard/business/TrackCampaignBusiness';
+// @ts-ignore
+import TrackPaymentBusiness from './pages/dashboard/business/TrackPaymentBusiness';
 
 import { AuthProvider, useAuth } from './context/AuthContext';
 // @ts-ignore
@@ -75,7 +76,7 @@ function AppContent() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <div className="loader">...</div>
+        <Loader />
       </div>
     );
   }
@@ -83,63 +84,61 @@ function AppContent() {
   return (
     <>
       <ScrollToTop />
-      <Suspense fallback= {<Loader />}> 
-        <Routes>
-          <Route path="/" element={<MainLayout />}>
-            <Route index element={<Home />} />
-            <Route path="about" element={<AboutPage />} />
-            <Route path="contact" element={<ContactPage />} />
-            <Route path="features" element={<FeaturesPage />} />
-            <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
-            <Route path="terms" element={<TermsPage />} />
-            <Route path="cookie-policy" element={<CookiePolicyPage />} />
+      <Routes>
+        <Route path="/" element={
+          <Suspense fallback={<Loader />}><MainLayout /></Suspense>
+        }>
+          <Route index element={<Suspense fallback={<Loader />}><Home /></Suspense>} />
+          <Route path="about" element={<Suspense fallback={<Loader />}><AboutPage /></Suspense>} />
+          <Route path="contact" element={<Suspense fallback={<Loader />}><ContactPage /></Suspense>} />
+          <Route path="features" element={<Suspense fallback={<Loader />}><FeaturesPage /></Suspense>} />
+          <Route path="privacy-policy" element={<Suspense fallback={<Loader />}><PrivacyPolicyPage /></Suspense>} />
+          <Route path="terms" element={<Suspense fallback={<Loader />}><TermsPage /></Suspense>} />
+          <Route path="cookie-policy" element={<Suspense fallback={<Loader />}><CookiePolicyPage /></Suspense>} />
+        </Route>
+        <Route element={<Suspense fallback={<Loader />}><AuthLayout /></Suspense>}>
+          <Route path="login" element={<Suspense fallback={<Loader />}><LoginPage /></Suspense>} />
+          <Route path="forgot-password" element={<Suspense fallback={<Loader />}><ForgotPasswordPage /></Suspense>} />
+          <Route path="reset-password" element={<Suspense fallback={<Loader />}><ResetPasswordPage /></Suspense>} />
+          <Route path="signup" element={<Suspense fallback={<Loader />}><SignupPage /></Suspense>} />
+          <Route path="verify-email" element={<Suspense fallback={<Loader />}><VerifyEmailPage /></Suspense>} />
+          <Route path="verify-otp" element={<Suspense fallback={<Loader />}><VerifyOtp /></Suspense>} />
+          <Route path="onboarding/business" element={<Suspense fallback={<Loader />}><BusinessOnboarding /></Suspense>} />
+          <Route path="onboarding/influencer" element={<Suspense fallback={<Loader />}><InfluencerOnboarding /></Suspense>} />
+          <Route path="onboarding/linksocials" element={<Suspense fallback={<Loader />}><LinkSocials /></Suspense>} />
+        </Route>
+        {/* Influencer Dashboard Routes */}
+        <Route element={<ProtectedRoute allowedRoles={['influencer']} />}> 
+          <Route path="dashboard/influencer" element={<InfluencerDashboardLayout />}> 
+            <Route index element={<InfluencerOverview />} />
+            <Route path='overview' element={<InfluencerOverview />} />
+            <Route path="ads" element={<InfluencerAds />} />
+            <Route path="requests" element={<InfluencerRequests />} />
+            <Route path="track-campaign/:adId" element={<TrackCampaignInfluencer />} />
+            <Route path="track-payment/:adId" element={<TrackPaymentInfluencer />} />
+            <Route path="profile" element={<InfluencerProfile />} />
+            <Route path="help" element={<InfluencerHelp />} />
+            <Route path="support/email" element={<Suspense fallback={<Loader />}><EmailSupport /></Suspense>} />
+            <Route path="feedback-bugs" element={<Suspense fallback={<Loader />}><FeedbackBugs /></Suspense>} />
           </Route>
-          <Route element={<AuthLayout />}>
-            <Route path="login" element={<LoginPage />} />
-            <Route path="forgot-password" element={<ForgotPasswordPage />} />
-            <Route path="reset-password" element={<ResetPasswordPage />} />
-            <Route path="signup" element={<SignupPage />} />
-            <Route path="verify-email" element={<VerifyEmailPage />} />
-            <Route path="verify-otp" element={<VerifyOtp />} />
-            <Route path="onboarding/business" element={<BusinessOnboarding />} />
-            <Route path="onboarding/influencer" element={<InfluencerOnboarding />} />
-            <Route path="onboarding/linksocials" element={<LinkSocials />} />
+        </Route>
+        {/* Business Dashboard Routes */}
+        <Route element={<ProtectedRoute allowedRoles={['business']} />}> 
+          <Route path="dashboard/business" element={<BusinessDashboardLayout />}> 
+            <Route index element={<BusinessOverview />} />
+            <Route path='overview' element={<BusinessOverview/>} />
+            <Route path="post-ads" element={<BusinessPostAds />} />
+            <Route path="applications" element={<BusinessApplications />} />
+            <Route path="influencers" element={<BusinessInfluencers />} />
+            <Route path="profile" element={<BusinessProfile />} />
+            <Route path="help" element={<BusinessHelp />} />
+            <Route path="support/email" element={<Suspense fallback={<Loader />}><EmailSupport /></Suspense>} />
+            <Route path="feedback-bugs" element={<Suspense fallback={<Loader />}><FeedbackBugs /></Suspense>} />
+            <Route path="track-campaign/:adId" element={<TrackCampaignBusiness />} />
+            <Route path="track-payment/:adId" element={<TrackPaymentBusiness />} />
           </Route>
-
-          {/* Influencer Dashboard Routes */}
-          <Route element={<ProtectedRoute allowedRoles={['influencer']} />}>
-            <Route path="dashboard/influencer" element={<InfluencerDashboardLayout />}>
-              <Route index element={<InfluencerOverview />} />
-              <Route path='overview' element={< InfluencerOverview />} />
-              <Route path="ads" element={<InfluencerAds />} />
-              <Route path="requests" element={<InfluencerRequests />} />
-              <Route path="track-campaign/:adId" element={<TrackCampaignInfluencer />} />
-              <Route path="track-payment/:adId" element={<TrackPaymentInfluencer />} />
-              <Route path="profile" element={<InfluencerProfile />} />
-              <Route path="help" element={<InfluencerHelp />} />
-              <Route path="support/email" element={<EmailSupport />} />
-              <Route path="feedback-bugs" element={<FeedbackBugs />} />
-            </Route>
-          </Route>
-
-          {/* Business Dashboard Routes */}
-          <Route element={<ProtectedRoute allowedRoles={['business']} />}>
-            <Route path="dashboard/business" element={<BusinessDashboardLayout />}>
-              <Route index element={<BusinessOverview />} />
-              <Route path='overview' element={< BusinessOverview/>} />
-              <Route path="post-ads" element={<BusinessPostAds />} />
-              <Route path="applications" element={<BusinessApplications />} />
-              <Route path="influencers" element={<BusinessInfluencers />} />
-              <Route path="profile" element={<BusinessProfile />} />
-              <Route path="help" element={<BusinessHelp />} />
-              <Route path="support/email" element={<EmailSupport />} />
-              <Route path="feedback-bugs" element={<FeedbackBugs />} />
-              <Route path="track-campaign/:adId" element={<TrackCampaignBusiness />} />
-              <Route path="track-payment/:adId" element={<TrackPaymentBusiness />} />
-            </Route>
-          </Route>
-        </Routes>
-      </Suspense>
+        </Route>
+      </Routes>
     </>
   );
 }
