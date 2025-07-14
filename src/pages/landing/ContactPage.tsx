@@ -293,7 +293,7 @@ const ContactPage = () => {
               },
               {
                 question: 'How much does it cost to use Localyse?',
-                answer: 'We offer a range of plans starting with a free tier for basic usage. Our paid plans start at $29/month and scale based on your needs and campaign volume.',
+                answer: 'We offer a range of plans starting with a free tier for basic usage. Our paid plans start at ₹299/month and scale based on your needs and campaign volume.',
               },
               {
                 question: 'As an influencer, how do I get paid for campaigns?',
