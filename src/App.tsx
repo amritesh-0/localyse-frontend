@@ -4,10 +4,10 @@ import { useEffect, Suspense, lazy } from 'react';
 //layouts components
 const MainLayout = lazy(() => import('./components/layout/MainLayout'));
 const AuthLayout = lazy(() => import('./components/layout/AuthLayout'));
-import ScrollToTop from './components/layout/ScrollToTop';
-import Loader from './components/ui/Loader';
 import BusinessDashboardLayout from './components/layout/BusinessDashboardLayout';
 import InfluencerDashboardLayout from './components/layout/InfluencerDashboardLayout';
+import ScrollToTop from './components/layout/ScrollToTop';
+import Loader from './components/ui/Loader';
 
 // Landing Pages
 const Home = lazy(() => import('./pages/landing/Home'));
@@ -39,8 +39,8 @@ import InfluencerProfile from './pages/dashboard/influencer/influencerProfile';
 import InfluencerHelp from './pages/dashboard/shared/HelpAndSupport';
 
 // Shared Dashboard
-const EmailSupport = lazy(() => import('./pages/dashboard/shared/EmailSupport'));
-const FeedbackBugs = lazy(() => import('./pages/dashboard/shared/FeedbackBugs'));
+import EmailSupport from './pages/dashboard/shared/EmailSupport';
+import FeedbackBugs from './pages/dashboard/shared/FeedbackBugs';
 
 // Business Dashboard
 import BusinessOverview from './pages/dashboard/business/businessOverview';
@@ -118,8 +118,8 @@ function AppContent() {
             <Route path="track-payment/:adId" element={<TrackPaymentInfluencer />} />
             <Route path="profile" element={<InfluencerProfile />} />
             <Route path="help" element={<InfluencerHelp />} />
-            <Route path="support/email" element={<Suspense fallback={<Loader />}><EmailSupport /></Suspense>} />
-            <Route path="feedback-bugs" element={<Suspense fallback={<Loader />}><FeedbackBugs /></Suspense>} />
+            <Route path="support/email" element={<EmailSupport />} />
+            <Route path="feedback-bugs" element={<FeedbackBugs />} />
           </Route>
         </Route>
         {/* Business Dashboard Routes */}
@@ -132,10 +132,10 @@ function AppContent() {
             <Route path="influencers" element={<BusinessInfluencers />} />
             <Route path="profile" element={<BusinessProfile />} />
             <Route path="help" element={<BusinessHelp />} />
-            <Route path="support/email" element={<Suspense fallback={<Loader />}><EmailSupport /></Suspense>} />
-            <Route path="feedback-bugs" element={<Suspense fallback={<Loader />}><FeedbackBugs /></Suspense>} />
             <Route path="track-campaign/:adId" element={<TrackCampaignBusiness />} />
             <Route path="track-payment/:adId" element={<TrackPaymentBusiness />} />
+            <Route path="support/email" element={<EmailSupport />} />
+            <Route path="feedback-bugs" element={<FeedbackBugs />} />
           </Route>
         </Route>
       </Routes>
