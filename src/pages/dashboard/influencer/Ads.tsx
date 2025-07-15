@@ -321,7 +321,7 @@ const InfluencerAds = () => {
                             className="flex-1 min-w-0"
                             onClick={() => openMessagePopup(ad._id, 'apply')}
                             icon={<CheckCircle size={16} />}
-                            disabled={isSubmitting}
+                            disabled={showMessagePopup && currentAdId === ad._id && isSubmitting}
                           >
                             Apply
                           </Button>
@@ -330,7 +330,7 @@ const InfluencerAds = () => {
                             className="flex-1 min-w-0"
                             onClick={() => openMessagePopup(ad._id, 'reject')}
                             icon={<XCircle size={16} />}
-                            disabled={isSubmitting}
+                            disabled={showMessagePopup && currentAdId === ad._id && isSubmitting}
                           >
                             Not Interested
                           </Button>
@@ -359,11 +359,13 @@ const InfluencerAds = () => {
               disabled={isSubmitting}
             />
       <div className="mt-4 flex justify-end space-x-2">
-        <Button variant="outline" onClick={closeMessagePopup} disabled={isSubmitting}>
+        <Button variant="outline" onClick={closeMessagePopup}>
           Cancel
         </Button>
         <Button variant="primary" onClick={handleSubmitMessage} disabled={isSubmitting} className="flex items-center justify-center">
-          {isSubmitting ? <Loader className="h-5 w-5 text-white mr-2" /> : null}
+          {isSubmitting ? (
+            <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></span>
+          ) : null}
           {isSubmitting ? 'Submitting...' : 'Submit'}
         </Button>
       </div>
