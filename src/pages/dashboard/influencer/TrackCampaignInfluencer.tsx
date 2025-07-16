@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -64,12 +64,12 @@ const TrackCampaignInfluencer = () => {
     }
   }, [adId]);
 
-  const handleInputChange = (field, value) => {
+  const handleInputChange = (field: string, value: string) => {
     setFormState(prev => ({ ...prev, [field]: value }));
     if (errorMessage) setErrorMessage('');
   };
 
-  const handleLinkChange = (index, field, value) => {
+  const handleLinkChange = (index: number, field: string, value: string) => {
     setFormState(prev => {
       const newLinks = [...prev.links];
       newLinks[index] = { ...newLinks[index], [field]: value };
@@ -85,7 +85,7 @@ const TrackCampaignInfluencer = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSuccessMessage('');
     setErrorMessage('');
@@ -130,7 +130,7 @@ const TrackCampaignInfluencer = () => {
     }
   };
 
-  const getStatusIcon = (status) => {
+  const getStatusIcon = (status: string) => {
     switch (status) {
       case 'approved':
         return <CheckCircle className="w-4 h-4 text-green-600" />;
@@ -145,7 +145,7 @@ const TrackCampaignInfluencer = () => {
     }
   };
 
-  const getStatusBadgeClass = (status) => {
+  const getStatusBadgeClass = (status: string) => {
     switch (status) {
       case 'approved':
         return 'bg-green-50 text-green-700 border-green-200';
@@ -160,7 +160,7 @@ const TrackCampaignInfluencer = () => {
     }
   };
 
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
       month: 'short',
@@ -171,7 +171,7 @@ const TrackCampaignInfluencer = () => {
     });
   };
 
-  const SubmissionCard = ({ submission, index }) => {
+  const SubmissionCard = ({ submission, index }: { submission: any, index: number }) => {
     const status = submission.status || 'pending';
     
     return (
@@ -214,7 +214,7 @@ const TrackCampaignInfluencer = () => {
               <h4 className="font-medium text-slate-700">Content Links</h4>
             </div>
             {submission.links && submission.links.length > 0 ? (
-              submission.links.map((link, idx) => (
+              submission.links.map((link: any, idx: number) => (
                 <a
                   key={idx}
                   href={link.url}
@@ -275,16 +275,14 @@ const TrackCampaignInfluencer = () => {
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-8">
       {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
-        <div className="text-left">
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">Campaign Submissions</h1>
-          <p className="text-slate-600">Submit your content and track approval status</p>
-          <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-primary-50 text-primary-700 rounded-full">
-            <Calendar className="w-4 h-4" />
-            <span className="font-medium">{campaignName}</span>
-          </div>
+      <div className="text-center mx-auto">
+        <h1 className="text-3xl font-bold text-slate-900 mb-2">Campaign Submissions</h1>
+        <p className="text-slate-600">Submit your content and track approval status</p>
+        <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-primary-50 text-primary-700 rounded-full">
+          <Calendar className="w-4 h-4" />
+          <span className="font-medium">{campaignName}</span>
         </div>
-        <div>
+        <div className="mt-4">
           <Button
             variant="primary"
             onClick={() => navigate(`/dashboard/influencer/track-payment/${adId}`)}
