@@ -230,7 +230,7 @@ const AvailableInfluencers = () => {
       setIsSubmitting(true);
       const formPayload = new FormData();
       formPayload.append('influencerId', selectedInfluencerId);
-      formPayload.append('adId', ''); // no adId when creating new campaign
+      // Do NOT append adId at all when creating new campaign
 
       // Append campaignData as JSON string
       const campaignData = { ...formData };
@@ -244,7 +244,6 @@ const AvailableInfluencers = () => {
 
       await sendRequestToInfluencer({
         influencerId: selectedInfluencerId,
-        adId: '',
         campaignData: formPayload,
       });
 

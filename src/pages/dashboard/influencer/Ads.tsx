@@ -8,7 +8,6 @@ import {
 
 import Card from '../../../components/ui/Card';
 import Button from '../../../components/ui/Button';
-import Loader from '../../../components/ui/Loader';
 import type { Ad } from '../../../services/influencerDashboard/availableAds';
 
 interface AdWithStatus extends Ad {
