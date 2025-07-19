@@ -95,7 +95,7 @@ const LoginPage = () => {
             <div className="absolute inset-0 bg-primary-300/10 backdrop-blur-sm" />
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-8 text-white">
               <h2 className="text-2xl font-bold">Welcome Back!</h2>
-              <p className="mt-2">Log in to your account to continue your journey with Suzao.</p>
+              <p className="mt-2">Log in to your account to continue your journey with Localyse.</p>
             </div>
           </div>
 

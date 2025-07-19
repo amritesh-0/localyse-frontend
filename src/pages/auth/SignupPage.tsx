@@ -111,7 +111,7 @@ const SignupPage = () => {
             />
             <div className="absolute inset-0 bg-primary-300/10 backdrop-blur-sm" />
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-8 text-white">
-              <h2 className="text-2xl font-bold">Join Suzao Today</h2>
+              <h2 className="text-2xl font-bold">Join Localyse Today</h2>
               <p className="mt-2">Create your account and start connecting with local influencers.</p>
             </div>
           </div>
@@ -121,7 +121,7 @@ const SignupPage = () => {
               <div className="text-center">
                 <h1 className="text-3xl font-bold text-slate-900">Create your account</h1>
                 <p className="mt-2 text-slate-600">
-                  Join Suzao to connect businesses with local influencers
+                  Join Localyse to connect businesses with local influencers
                 </p>
               </div>
 
