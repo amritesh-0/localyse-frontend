@@ -11,7 +11,7 @@ interface LinkedSocials {
   instagram_linked?: boolean;
   facebook?: boolean;
   twitter?: boolean;
-  youtube?: boolean;
+  youtube_linked?: boolean;
 }
 
 const LinkedAccounts = () => {
@@ -40,6 +40,13 @@ const LinkedAccounts = () => {
     const backendUrl = import.meta.env.VITE_API_BASE_URL || '';
     const token = getToken();
     const oauthUrl = `${backendUrl}/api/instagram/login?state=${encodeURIComponent(token)}`;
+    window.location.href = oauthUrl;
+  };
+
+  const handleYouTubeConnect = () => {
+    const backendUrl = import.meta.env.VITE_API_BASE_URL || '';
+    const token = getToken();
+    const oauthUrl = `${backendUrl}/api/youtube/login?state=${encodeURIComponent(token)}`;
     window.location.href = oauthUrl;
   };
 
@@ -124,13 +131,20 @@ const LinkedAccounts = () => {
               <Youtube size={24} />
               <span className="font-medium">YouTube</span>
             </div>
-            {linkedSocials?.youtube ? (
+            {linkedSocials?.youtube_linked ? (
               <span className="flex items-center space-x-1 rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-700">
                 <CheckCircle size={14} />
                 <span>Linked</span>
               </span>
             ) : (
-              <span className="italic text-slate-400">Coming Soon</span>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={handleYouTubeConnect}
+                icon={<ExternalLink size={14} />}
+              >
+                Link
+              </Button>
             )}
           </div>
         </div>

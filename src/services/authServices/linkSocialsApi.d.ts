@@ -1,6 +1,7 @@
 export interface LinkedSocials {
   instagram: boolean;
   instagram_linked: boolean;
+  youtube_linked: boolean;
   instagram_username?: string;
   instagram_account_type?: string;
   facebook: boolean;

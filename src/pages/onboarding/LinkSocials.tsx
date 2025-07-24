@@ -66,12 +66,15 @@ const LinkSocials = () => {
               console.log('Setting Instagram isLinked to:', linkedSocials.instagram_linked || false);
               return { ...platform, isLinked: linkedSocials.instagram_linked || false };
             }
+            if (platform.id === 'youtube') {
+              console.log('Setting YouTube isLinked to:', linkedSocials.youtube_linked || false);
+              return { ...platform, isLinked: linkedSocials.youtube_linked || false };
+            }
             // For other platforms, always set isLinked to false since linking not implemented
             let isLinked = false;
             switch (platform.id) {
               case 'facebook':
               case 'twitter':
-              case 'youtube':
                 isLinked = false;
                 break;
               default:
@@ -112,6 +115,14 @@ const LinkSocials = () => {
           platform.id === 'instagram' ? { ...platform, isLinked: true } : platform
         )
       );
+
+    if (params.get('connected') === 'youtube') {
+      setPlatforms((prevPlatforms) =>
+        prevPlatforms.map((platform) =>
+          platform.id === 'youtube' ? { ...platform, isLinked: true } : platform
+        )
+      );
+    }
       // Remove the query parameter from the URL to prevent repeated setting
       const url = new URL(window.location.href);
       url.searchParams.delete('connected');
@@ -129,7 +140,17 @@ const LinkSocials = () => {
       console.log('Redirecting to Instagram OAuth URL:', oauthUrl);
 
       window.location.href = oauthUrl;
-    } else if (platformId === 'facebook' || platformId === 'twitter' || platformId === 'youtube') {
+    } else if (platformId === 'youtube') {
+      const backendUrl = import.meta.env.VITE_API_BASE_URL || '';
+
+      const token = getToken();
+      console.log('YouTube OAuth login token:', token);
+
+      const oauthUrl = `${backendUrl}/api/youtube/login?state=${encodeURIComponent(token)}`;
+      console.log('Redirecting to YouTube OAuth URL:', oauthUrl);
+
+      window.location.href = oauthUrl;
+    } else if (platformId === 'facebook' || platformId === 'twitter') {
       alert(platformId.charAt(0).toUpperCase() + platformId.slice(1) + ' linking coming soon!');
     }
   };

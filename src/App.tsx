@@ -29,6 +29,8 @@ const BusinessOnboarding = lazy(() => import('./pages/onboarding/BusinessOnboard
 const InfluencerOnboarding = lazy(() => import('./pages/onboarding/InfluencerOnboarding'));
 const LinkSocials = lazy(() => import('./pages/onboarding/LinkSocials'));
 
+import YouTubeInsights from './components/profile/YouTubeInsights';
+
 // Influencer Dashboard
 import InfluencerOverview from './pages/dashboard/influencer/influencerOverview';
 import InfluencerAds from './pages/dashboard/influencer/Ads';
@@ -106,6 +108,7 @@ function AppContent() {
           <Route path="onboarding/business" element={<Suspense fallback={<Loader />}><BusinessOnboarding /></Suspense>} />
           <Route path="onboarding/influencer" element={<Suspense fallback={<Loader />}><InfluencerOnboarding /></Suspense>} />
           <Route path="onboarding/linksocials" element={<Suspense fallback={<Loader />}><LinkSocials /></Suspense>} />
+          <Route path="youtube-insights" element={<Suspense fallback={<Loader />}><YouTubeInsights /></Suspense>} />
         </Route>
         {/* Influencer Dashboard Routes */}
         <Route element={<ProtectedRoute allowedRoles={['influencer']} />}> 
