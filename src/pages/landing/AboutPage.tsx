@@ -19,6 +19,7 @@ const AboutPage = () => {
         </motion.div>
         
         <div className="grid gap-12 md:grid-cols-2">
+          {/* Our Story */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -37,7 +38,8 @@ const AboutPage = () => {
               </p>
             </div>
           </motion.div>
-          
+
+          {/* Our Mission */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -57,7 +59,26 @@ const AboutPage = () => {
             </div>
           </motion.div>
         </div>
-        
+
+        {/* Founder Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.35 }}
+          className="mt-16"
+        >
+          <div className="mx-auto max-w-4xl rounded-2xl bg-white p-8 shadow-subtle">
+            <h2 className="mb-4 text-center text-2xl font-semibold text-slate-900">Meet the Founder</h2>
+            <p className="text-center text-slate-600 mb-4">
+              <strong>Amritesh Kumar</strong>, Founder & CEO of Localyse, is a tech entrepreneur and community builder with a passion for solving hyperlocal problems using innovative digital solutions.
+            </p>
+            <p className="text-center text-slate-600">
+              A Computer Science undergraduate at Manipal University Jaipur, Amritesh envisioned a platform that empowers both local businesses and creators to collaborate meaningfully. With a strong background in AI and product design, he is committed to driving impact through purpose-driven technology.
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Our Values */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -99,7 +120,8 @@ const AboutPage = () => {
             ))}
           </div>
         </motion.div>
-        
+
+        {/* CTA Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

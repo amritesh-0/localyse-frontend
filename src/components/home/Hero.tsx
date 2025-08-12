@@ -34,18 +34,18 @@ const Hero = () => {
                 Learn More
               </a>
             </div>
-            <div className="mt-8 flex items-center">
-              <div className="flex -space-x-2">
+            <div className="mt-8 flex flex-col sm:flex-row items-center">
+              <div className="flex -space-x-2 mb-2 sm:mb-0">
                 {[1, 2, 3, 4].map((i) => (
                   <img
                     key={i}
                     src={`https://randomuser.me/api/portraits/women/${i + 20}.jpg`}
                     alt="User"
-                    className="w-10 h-10 rounded-full border-2 border-white object-cover"
+                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-white object-cover"
                   />
                 ))}
               </div>
-              <p className="ml-4 text-sm opacity-90">Trusted by <span className="font-bold">500+</span> influencers & businesses</p>
+              <p className="text-center sm:text-left sm:ml-4 text-xs sm:text-sm opacity-90">Trusted by <span className="font-bold">1000+</span> influencers & businesses</p>
             </div>
           </div>
           
