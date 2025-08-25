@@ -36,10 +36,15 @@ const Hero = () => {
             </div>
             <div className="mt-8 flex flex-col sm:flex-row items-center">
               <div className="flex -space-x-2 mb-2 sm:mb-0">
-                {[1, 2, 3, 4].map((i) => (
+                {[
+                  'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=80&h=80&fit=crop&crop=face',
+                  'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face',
+                  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&h=80&fit=crop&crop=face',
+                  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face'
+                ].map((src, i) => (
                   <img
                     key={i}
-                    src={`https://randomuser.me/api/portraits/women/${i + 20}.jpg`}
+                    src={src}
                     alt="User"
                     className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-white object-cover"
                   />

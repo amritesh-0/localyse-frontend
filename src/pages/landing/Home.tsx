@@ -1,4 +1,5 @@
 import Hero from '../../components/home/Hero';
+import DiscoverSection from '../../components/home/DiscoverSection';
 import FeatureSection from '../../components/home/FeatureSection';
 import HowItWorks from '../../components/home/HowItWorks';
 import PrivacyPolicySection from '../../components/home/PrivacyPolicySection';
@@ -9,6 +10,7 @@ const Home = () => {
   return (
     <>
       <Hero />
+      <DiscoverSection />
       <FeatureSection />
       <HowItWorks />
       <PrivacyPolicySection />

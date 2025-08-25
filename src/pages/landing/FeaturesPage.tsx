@@ -71,7 +71,7 @@ const FeaturesPage = () => {
           description: "Connect with creators who share your brand's values and aesthetics"
         }
       ],
-      image: "https://images.pexels.com/photos/7709293/pexels-photo-7709293.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop",
       icon: <Globe />
     },
     {
@@ -91,7 +91,7 @@ const FeaturesPage = () => {
           description: "Track follower increases and audience demographic changes"
         }
       ],
-      image: "https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
       reversed: true,
       icon: <BarChart2 />
     },
@@ -112,7 +112,7 @@ const FeaturesPage = () => {
           description: "Securely manage influencer compensation with escrow protection"
         }
       ],
-      image: "https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop",
       icon: <Calendar />
     },
     {
@@ -132,7 +132,7 @@ const FeaturesPage = () => {
           description: "Discover and participate in multi-business campaigns and events"
         }
       ],
-      image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop",
       reversed: true,
       icon: <Users />
     }

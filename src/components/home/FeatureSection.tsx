@@ -88,7 +88,7 @@ const FeatureSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-white" id="features">
+    <section className="py-20 bg-slate-50" id="features">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
