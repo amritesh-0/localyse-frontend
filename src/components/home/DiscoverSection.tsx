@@ -114,10 +114,10 @@ const DiscoverSection = () => {
           className="text-center mb-16"
         >
           <h2 className="mb-4 font-bold text-slate-900">
-             Your City. Your Collab!
+          Your City. Your Collab!
           </h2>
           <p className="mx-auto max-w-2xl text-lg text-slate-600">
-            Discover local ads & influencers in your city and start building local partnerships today.
+          Discover local ads and influencers around you see, connect, and grow together.
           </p>
         </motion.div>
 
