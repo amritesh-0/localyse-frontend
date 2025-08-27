@@ -22,6 +22,12 @@ interface Influencer {
     profile_picture_url: string;
     insights: any[];
   } | null;
+  youtubeInsights?: {
+    subscriberCount?: string | number;
+    viewCount?: string | number;
+    videoCount?: string | number;
+    channelId?: string;
+  } | null;
   personalInfo?: {
     fullName: string;
     gender: string;
@@ -432,14 +438,18 @@ const handleInputChange = (
                     city={influencer.personalInfo?.city || ''}
                     state={influencer.personalInfo?.state || ''}
                     followers={
-                      influencer.instagramInsights?.followers_count?.toLocaleString() || '0'
+                      influencer.instagramInsights?.followers_count !== undefined ?
+                        influencer.instagramInsights.followers_count.toLocaleString() : undefined
                     }
                     niche={influencer.personalInfo?.niche || ''}
                     instagramTotalPost={
-                      influencer.instagramInsights?.media_count || 0
+                      influencer.instagramInsights?.media_count
                     }
                     gender={influencer.personalInfo?.gender || ''}
                     instagramUsername={influencer.instagramInsights?.username || ''}
+                    youtubeSubscriberCount={influencer.youtubeInsights?.subscriberCount}
+                    youtubeVideoCount={influencer.youtubeInsights?.videoCount}
+                    youtubeChannelId={influencer.youtubeInsights?.channelId}
                     onSendRequest={() => openModal(influencer._id || '')}
                     requestStatus={status}
                     onTrackAds={() => handleTrackAds(acceptedAdIds[influencer._id] || '')}

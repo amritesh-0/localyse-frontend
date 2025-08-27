@@ -1,18 +1,21 @@
 import React from 'react';
 import Card from '../ui/Card';
 import Button from '../ui/Button';
-import { UserPlus, Instagram, MapPin, Users, Star, CheckCircle } from 'lucide-react';
+import { UserPlus, MapPin, CheckCircle, Youtube, Instagram, Users, Film, Image as ImageIcon } from 'lucide-react';
 
 interface InfluencerProfileCardProps {
   profileImageUrl?: string;
   fullName: string;
   city?: string;
   state?: string;
-  followers: string;
+  followers?: string;
   niche: string;
   instagramTotalPost?: number;
   gender?: string;
   instagramUsername?: string;
+  youtubeSubscriberCount?: string | number;
+  youtubeVideoCount?: string | number;
+  youtubeChannelId?: string;
   onSendRequest?: () => void;
   requestStatus?: string | null;
   onTrackAds?: () => void;
@@ -23,11 +26,14 @@ const InfluencerProfileCard: React.FC<InfluencerProfileCardProps> = ({
   fullName,
   city,
   state,
-  followers = '0',
+  followers,
   niche = '',
-  instagramTotalPost = '0',
+  instagramTotalPost,
   gender,
   instagramUsername,
+  youtubeSubscriberCount,
+  youtubeVideoCount,
+  youtubeChannelId,
   onSendRequest,
   requestStatus,
   onTrackAds,
@@ -41,103 +47,147 @@ const InfluencerProfileCard: React.FC<InfluencerProfileCardProps> = ({
     return followersStr;
   };
 
+  const formatCount = (value?: string | number) => {
+    if (value === undefined || value === null) return undefined;
+    const num = typeof value === 'string' ? parseInt(value, 10) : value;
+    if (isNaN(num)) return String(value);
+    if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`;
+    if (num >= 1000) return `${(num / 1000).toFixed(1)}K`;
+    return num.toLocaleString();
+  };
+
+  const toTitleCase = (text?: string) => {
+    if (!text) return text;
+    return text
+      .toLowerCase()
+      .split(' ')
+      .filter(Boolean)
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(' ');
+  };
+
+  const displayNiche = toTitleCase(niche);
+  const displayGender = gender ? toTitleCase(gender) : undefined;
+  const displayLocation = location;
+
   return (
     <Card
       padding="none"
-      className="max-w-[320px] min-w-[280px] bg-white rounded-xl border border-slate-200 hover:border-slate-300 hover:shadow-md transition-all duration-200 overflow-hidden"
+      className="max-w-[340px] min-w-[300px] bg-white rounded-xl border border-slate-200/80 hover:border-indigo-200 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden"
     >
-      {/* Simplified header */}
-      <div className="p-6 pb-4 border-b border-slate-100">
-        {/* Profile Image */}
-        <div className="flex justify-center mb-4">
+      {/* Header */}
+      <div className="p-4 pb-3 border-b border-slate-100 bg-gradient-to-b from-slate-50 to-white">
+        <div className="flex justify-center mb-3">
           <div className="relative">
             <img
               src={profileImageUrl}
               alt={`${fullName} profile`}
-              className="w-16 h-16 rounded-full object-cover border-2 border-slate-200"
+              className="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm"
             />
-            {/* Verified badge */}
-            <div className="absolute -bottom-1 -right-1 bg-emerald-500 rounded-full p-1 border-2 border-white">
-              <CheckCircle size={10} className="text-white" />
+            <div className="absolute -bottom-1 -right-1 bg-emerald-500 rounded-full p-1 border-2 border-white shadow">
+              <CheckCircle size={8} className="text-white" />
             </div>
           </div>
         </div>
 
-        {/* Name and basic info */}
-        <div className="text-center space-y-2">
-          <h2 className="text-lg font-semibold text-slate-900 leading-tight">{fullName}</h2>
-          
-          {/* Location */}
-          {location ? (
-            <div className="flex items-center justify-center space-x-1 text-slate-600">
-              <MapPin size={14} className="text-slate-400" />
-              <span className="text-sm">{location}</span>
+        <div className="text-center space-y-1">
+          <h2 className="text-lg font-semibold text-slate-900 leading-tight tracking-tight">{fullName}</h2>
+          {(displayNiche || displayGender) && (
+            <div className="flex items-center justify-center gap-2">
+              {displayNiche && <span className="text-xs text-indigo-600 font-medium">{displayNiche}</span>}
+              {displayNiche && displayGender && <span className="text-slate-300">•</span>}
+              {displayGender && <span className="text-[10px] text-slate-500">{displayGender}</span>}
             </div>
-          ) : (
-            <p className="text-sm text-slate-400">Location not specified</p>
           )}
-
-          {/* Niche badge */}
-          <div className="inline-flex items-center px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-medium">
-            <Star size={12} className="mr-1 text-slate-500" />
-            {niche}
-          </div>
+          {displayLocation && (
+            <div className="flex items-center justify-center space-x-1 text-slate-600">
+              <MapPin size={12} className="text-slate-400" />
+              <span className="text-xs">{displayLocation}</span>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Content section */}
-      <div className="p-6 pt-4 space-y-4">
-        {/* Stats grid */}
-        <div className="grid grid-cols-2 gap-3">
-          {/* Followers */}
-          <div className="text-center p-3 rounded-lg bg-slate-50 border border-slate-100">
-            <div className="flex items-center justify-center mb-1">
-              <Users size={16} className="text-slate-500" />
-            </div>
-            <p className="text-lg font-semibold text-slate-900">{formatFollowers(followers)}</p>
-            <p className="text-xs text-slate-600">Followers</p>
-          </div>
-
-          {/* Instagram Total Post */}
-          {instagramTotalPost !== undefined && (
-            <div className="text-center p-3 rounded-lg bg-slate-50 border border-slate-100">
-              <div className="flex items-center justify-center mb-1">
-                <Instagram size={16} className="text-slate-500" />
+      {/* Content */}
+      <div className="p-3 space-y-3">
+        {/* Instagram */}
+        {(followers !== undefined || instagramTotalPost !== undefined || instagramUsername) && (
+          <div className="rounded-lg border border-slate-200 bg-slate-50/60 p-3 hover:shadow-md hover:scale-[1.02] transition-all duration-300">
+            <div className="flex items-center justify-between mb-2">
+              <div className="inline-flex items-center space-x-1.5 px-2 py-0.5 rounded-full bg-white border border-slate-200">
+                <Instagram size={13} className="text-pink-500" />
+                <span className="text-[11px] font-semibold text-slate-800">Instagram</span>
               </div>
-              <p className="text-lg font-semibold text-slate-900">{instagramTotalPost.toLocaleString()}</p>
-              <p className="text-xs text-slate-600">Total Post</p>
             </div>
-          )}
-        </div>
-
-        {/* Additional info */}
-        {(gender || instagramUsername) && (
-          <div className="space-y-3 pt-2 border-t border-slate-100">
-            {gender && (
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-slate-600">Gender:</span>
-                <span className="text-slate-900 font-medium capitalize">{gender}</span>
+            <div className="flex items-center justify-between text-slate-700">
+              <div className="flex items-center gap-4">
+                {followers !== undefined && (
+                  <span className="flex items-center gap-1 text-xs text-slate-700">
+                    <Users size={12} className="text-slate-500" />
+                    <span className="font-medium">{formatFollowers(followers)}</span> followers
+                  </span>
+                )}
+                {instagramTotalPost !== undefined && (
+                  <span className="flex items-center gap-1 text-xs text-slate-700">
+                    <ImageIcon size={12} className="text-slate-500" />
+                    <span className="font-medium">{instagramTotalPost.toLocaleString()}</span> posts
+                  </span>
+                )}
               </div>
-            )}
-            
-            {instagramUsername && (
-              <div className="flex justify-center">
+              {instagramUsername && (
                 <a
                   href={`https://instagram.com/${instagramUsername}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center space-x-2 text-slate-700 hover:text-slate-900 transition-colors duration-200 bg-slate-50 hover:bg-slate-100 px-3 py-2 rounded-lg border border-slate-200 hover:border-slate-300"
+                  className="text-xs font-medium text-indigo-700 hover:text-indigo-800"
                 >
-                  <Instagram size={14} />
-                  <span className="text-sm font-medium">{instagramUsername}</span>
+                  @{instagramUsername}
                 </a>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* YouTube */}
+        {(youtubeSubscriberCount !== undefined || youtubeVideoCount !== undefined || youtubeChannelId) && (
+          <div className="rounded-lg border border-slate-200 bg-slate-50/60 p-3 hover:shadow-md hover:scale-[1.02] transition-all duration-300">
+            <div className="flex items-center justify-between mb-2">
+              <div className="inline-flex items-center space-x-1.5 px-2 py-0.5 rounded-full bg-white border border-slate-200">
+                <Youtube size={13} className="text-red-500" />
+                <span className="text-[11px] font-semibold text-slate-800">YouTube</span>
               </div>
-            )}
+            </div>
+            <div className="flex items-center justify-between text-slate-700">
+              <div className="flex items-center gap-4">
+                {youtubeSubscriberCount !== undefined && (
+                  <span className="flex items-center gap-1 text-xs text-slate-700">
+                    <Users size={12} className="text-slate-500" />
+                    <span className="font-medium">{formatCount(youtubeSubscriberCount)}</span> subs
+                  </span>
+                )}
+                {youtubeVideoCount !== undefined && (
+                  <span className="flex items-center gap-1 text-xs text-slate-700">
+                    <Film size={12} className="text-slate-500" />
+                    <span className="font-medium">{formatCount(youtubeVideoCount)}</span> videos
+                  </span>
+                )}
+              </div>
+              {youtubeChannelId && (
+                <a
+                  href={`https://youtube.com/channel/${youtubeChannelId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-medium text-indigo-700 hover:text-indigo-800"
+                >
+                  Channel
+                </a>
+              )}
+            </div>
           </div>
         )}
 
         {/* Action Button */}
-        <div className="pt-2">
+        <div className="pt-1">
           {requestStatus === 'pending' ? (
             <Button
               variant="secondary"
