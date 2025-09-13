@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Mail, Lock, ArrowRight } from 'lucide-react';
+import Lottie from 'lottie-react';
 import Container from '../../components/ui/Container';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
@@ -16,8 +17,16 @@ const LoginPage = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [animationData, setAnimationData] = useState(null);
   const navigate = useNavigate();
   const { login: contextLogin } = useAuth();
+
+  useEffect(() => {
+    fetch('/lottiefiles/Login.json')
+      .then(response => response.json())
+      .then(data => setAnimationData(data))
+      .catch(error => console.error('Error loading animation:', error));
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,13 +96,9 @@ const LoginPage = () => {
           className="flex w-full max-w-6xl overflow-hidden rounded-3xl bg-white shadow-subtle"
         >
           <div className="relative hidden w-1/2 lg:block">
-            <img
-              src="https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg"
-              alt="Login"
-              className="h-full w-full object-cover"
-            />
-            <div className="absolute inset-0 bg-primary-300/10 backdrop-blur-sm" />
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-8 text-white">
+            {animationData && <Lottie animationData={animationData} loop={true} className="h-full w-full object-cover" />}
+            <div className="absolute inset-0 bg-primary-300/10" />
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-8 text-black">
               <h2 className="text-2xl font-bold">Welcome Back!</h2>
               <p className="mt-2">Log in to your account to continue your journey with Localyse.</p>
             </div>

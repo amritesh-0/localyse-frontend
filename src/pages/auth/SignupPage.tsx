@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Mail, User, Lock, ArrowRight } from 'lucide-react';
+import Lottie from 'lottie-react';
 import Container from '../../components/ui/Container';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
@@ -17,10 +18,18 @@ const SignupPage = () => {
     confirmPassword: '',
     accountType: 'business',
   });
-  
+
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [successMessage, setSuccessMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [animationData, setAnimationData] = useState(null);
+
+  useEffect(() => {
+    fetch('/lottiefiles/Signup.json')
+      .then(response => response.json())
+      .then(data => setAnimationData(data))
+      .catch(error => console.error('Error loading animation:', error));
+  }, []);
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -104,13 +113,9 @@ const SignupPage = () => {
           className="flex w-full max-w-6xl overflow-hidden rounded-3xl bg-white shadow-subtle"
         >
           <div className="relative hidden w-1/2 lg:block">
-            <img
-              src="https://images.pexels.com/photos/3182781/pexels-photo-3182781.jpeg"
-              alt="Sign up"
-              className="h-full w-full object-cover"
-            />
-            <div className="absolute inset-0 bg-primary-300/10 backdrop-blur-sm" />
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-8 text-white">
+            {animationData && <Lottie animationData={animationData} loop={true} className="h-full w-full object-cover" />}
+            <div className="absolute inset-0 bg-primary-300/10" />
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-5 text-black">
               <h2 className="text-2xl font-bold">Join Localyse Today</h2>
               <p className="mt-2">Create your account and start connecting with local influencers.</p>
             </div>
