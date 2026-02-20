@@ -188,7 +188,6 @@ const AvailableInfluencers = () => {
     }
   };
 
-  // New function to refresh acceptedAdIds
   const refreshAcceptedAdIds = async () => {
     try {
       const adIds: Record<string, string> = await getAcceptedAdsPerInfluencer();
