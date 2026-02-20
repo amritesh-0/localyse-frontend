@@ -44,9 +44,7 @@ const ForgotPasswordPage = () => {
   const handleResend = async () => {
     setIsLoading(true);
     try {
-      // Call backend forgot password API to resend
       await forgotPassword(email);
-      // Show success message or update UI
     } catch (error) {
       setError('Failed to resend email. Please try again.');
     } finally {
