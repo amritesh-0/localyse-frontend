@@ -31,7 +31,6 @@ const BusinessApplications: React.FC = () => {
     const loadApplications = async () => {
       const data = await applicationsService.fetchApplications();
       if (data.success) {
-        // Deduplicate by _id before setting state
         const uniqueApps = data.applications.filter((app, index, self) =>
           index === self.findIndex(t => t._id === app._id)
         );
