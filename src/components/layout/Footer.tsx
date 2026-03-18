@@ -47,7 +47,7 @@
 //             <p className="mt-2 text-sm text-slate-500">
 //               Our mission is to empower local communities by fostering genuine partnerships that drive growth and engagement. 
 //               </p>
-            
+
 //           </div>
 
 //           {/* Footer links */}
@@ -174,6 +174,7 @@ const Footer = () => {
         { label: 'Privacy Policy', path: '/privacy-policy' },
         { label: 'Terms of Service', path: '/terms' },
         { label: 'Cookie Policy', path: '/cookie-policy' },
+        { label: 'Account Deletion', path: '/request-account-deletion' },
       ],
     },
   ];

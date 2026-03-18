@@ -17,6 +17,7 @@ const FeaturesPage = lazy(() => import('./pages/landing/FeaturesPage'));
 const PrivacyPolicyPage = lazy(() => import('./pages/landing/PrivacyPolicyPage'));
 const TermsPage = lazy(() => import('./pages/landing/TermsPage'));
 const CookiePolicyPage = lazy(() => import('./pages/landing/CookiePolicyPage'));
+const AccountDeletionRequestPage = lazy(() => import('./pages/landing/AccountDeletionRequestPage'));
 
 // Authentication Pages
 const LoginPage = lazy(() => import('./pages/auth/LoginPage'));
@@ -97,6 +98,7 @@ function AppContent() {
           <Route path="privacy-policy" element={<Suspense fallback={<Loader />}><PrivacyPolicyPage /></Suspense>} />
           <Route path="terms" element={<Suspense fallback={<Loader />}><TermsPage /></Suspense>} />
           <Route path="cookie-policy" element={<Suspense fallback={<Loader />}><CookiePolicyPage /></Suspense>} />
+          <Route path="request-account-deletion" element={<Suspense fallback={<Loader />}><AccountDeletionRequestPage /></Suspense>} />
         </Route>
         <Route element={<Suspense fallback={<Loader />}><AuthLayout /></Suspense>}>
           <Route path="login" element={<Suspense fallback={<Loader />}><LoginPage /></Suspense>} />
